@@ -2,14 +2,19 @@
 <!-- Auto-updated by modes and agents. Do not edit structure. Add content to slots. -->
 
 ## Repo Map (max 15 lines)
-[TO DISCOVER: entrypoints, module boundaries, key directories]
-
-- Entry: kernel-plugin (Claude Code plugin, not executable)
-- Core modules: kernel/ (template files), .claude/ (KERNEL's own config)
-- Templates: kernel/banks/ (5 banks), kernel/commands/ (10 commands), kernel/hooks/ (3 hooks)
-- Docs: README.md, SETUP.md, CONFIG-TYPES.md
-- MCP: claude-docs-server.py, .mcp.json
-- Config: .claude/rules/ (preferences, invariants, patterns, decisions)
+- Entry: Claude Code plugin (distributed via marketplace, not executable)
+- Plugin manifest: .claude-plugin/plugin.json (v1.1.0), .claude-plugin/marketplace.json
+- Core templates: kernel/ (copied to projects during /kernel-init)
+  - kernel/banks/ (5 banks: PLANNING, DEBUGGING, DISCOVERY, REVIEW, DOCUMENTATION - 698 lines total)
+  - kernel/commands/ (9 mode commands: discover, plan, debug, review, docs, branch, ship, parallelize, handoff)
+  - kernel/hooks/ (3 hook templates)
+  - kernel/rules/ (rule templates)
+- Plugin commands: commands/ (12 total: 3 core kernel-*, 9 methodology/workflow)
+- Documentation: docs/COMMANDS.md (reference), README.md (overview), SETUP.md (how-to), CONFIG-TYPES.md (guide)
+- MCP server: claude-docs-server.py (Python 3.8+, optional)
+- Memory: memory/config_registry.jsonl (tracks artifact usage for pruning)
+- Sample project: sample-project/ (demo with Python task manager)
+- KERNEL's own config: .claude/ (skills, agents, rules, settings)
 
 ## Tooling Inventory (max 10 tools)
 | Tool | Command | Status |
@@ -24,19 +29,22 @@
 | Python | python3 (for MCP server) | ✓ available |
 
 ## Conventions (max 10 bullets)
-[TO DISCOVER: naming patterns, error handling, logging, config management]
-
-- Naming: kebab-case for markdown files (discover.md, plan.md), SCREAMING-CAPS for banks (DISCOVERY-BANK.md)
-- Files: Descriptive frontmatter with description field
-- Structure: Template notice (⚠️) at bottom of all template files
-- Slots: Explicit caps (max N items) to prevent bloat
-- Markdown: GitHub-flavored markdown, code blocks with language tags
-- Organization: kernel/ for templates, .claude/ for KERNEL's own config
+- **Naming**: kebab-case for commands (discover.md, kernel-init.md), SCREAMING-CAPS for banks (PLANNING-BANK.md)
+- **Frontmatter**: All commands have `description:` field, banks have philosophy + slots
+- **Structure**: Template notice (⚠️) at bottom of template files, slots marked with caps (max N)
+- **Documentation**: PROCEDURAL style, line 2 rule (purpose + use when/avoid when)
+- **Versioning**: Semantic versioning in plugin.json (currently 1.1.0)
+- **Commands**: Plugin commands in commands/, template commands in kernel/commands/
+- **Organization**: kernel/ = templates for distribution, .claude/ = KERNEL's own config
+- **Banks**: Token-optimized (500-800 tokens each vs 2000+ before), loaded on-demand only
+- **State management**: kernel/state.md is single source of truth, updated by modes
+- **Git workflow**: Branch-first (NEVER WORK ON MAIN), conventional commits, ship via PR
 
 ## Last Validation
 - Date: 2026-01-10
-- Status: Discovery complete, state populated
-- Command: /discover
+- Status: Discovery complete, documentation mode complete, state fully populated
+- Commands: /docs (documentation audit), /discover (full reconnaissance)
+- Uncommitted changes: docs/COMMANDS.md added, docs/documentation-files/ removed, README.md updated
 
 ## Active Preferences
 → See .claude/rules/preferences.md
@@ -49,10 +57,10 @@
 - uncommitted: false
 
 ## Documentation State
-- docs_style: null  # REFERENCE | PROCEDURAL | NARRATIVE (set once, lock)
-- doc_kinds: []     # tutorial, how-to, reference, explanation
-- last_audit: null  # ISO date
-- exceptions: []    # budget violations with rationale
+- docs_style: PROCEDURAL  # Plugin with CLI commands, config files, setup workflows
+- doc_kinds: [reference, how-to]  # COMMANDS.md (reference), SETUP.md (how-to)
+- last_audit: 2026-01-10  # ISO date
+- exceptions: []  # budget violations with rationale
 
 ## Recent Decisions (max 5, link to decisions.md for full log)
 [TO POPULATE: as architecture decisions are made]
@@ -64,11 +72,11 @@
 5. 2026-01-10: Total baseline cost: ~330 tokens (vs ~560 previous, ~6000 original)
 
 ## Do Not Touch (max 5 bullets)
-[TO DISCOVER: migrations, auth, critical paths, data schemas]
-
 - kernel/ directory - template files distributed to all projects via /kernel-init
-- .claude/CLAUDE.md - philosophy anchor (150 tokens, carefully crafted)
-- kernel/state.md - shared world model (update via modes, not manually)
+- kernel/banks/ - token-optimized methodology banks (698 lines total, carefully balanced)
+- .claude-plugin/plugin.json - plugin manifest (version, metadata)
+- CLAUDE.md, kernel/CLAUDE.md - philosophy anchors (~150 tokens each)
+- kernel/state.md - shared world model (update via modes, not manual edits)
 
 ---
 ⚠️ **TEMPLATE NOTICE**

@@ -147,20 +147,29 @@ Markdown files describing patterns and examples for specific domains.
 **Rules** (User preferences)
 Imperative rules grouped by topic that Claude follows.
 
-### Included Commands
+### Available Commands
 
-| Command | Description |
-|---------|-------------|
-| `/kernel-init` | Initialize KERNEL for any project |
-| `/discover` | Map codebase, find tooling, extract conventions |
-| `/plan` | Get-it-right-first-time planning mode |
-| `/debug` | Systematic diagnosis and root cause fixing |
-| `/review` | Correctness, consistency, completeness validation |
-| `/docs` | Documentation audit, generation, maintenance |
-| `/kernel-status` | Show config health and staleness report |
-| `/kernel-prune` | Review and remove stale config entries |
-| `/handoff` | Generate context handoff for session continuation |
-| `/parallelize` | Set up git worktrees for parallel development |
+KERNEL provides commands in two categories:
+
+**Core Commands** (always available):
+- `/kernel-init` - Initialize KERNEL for any project
+- `/kernel-status` - Show config health and staleness report
+- `/kernel-prune` - Review and remove stale config entries
+
+**Methodology Commands** (available after `/kernel-init`):
+- `/discover` - Map codebase, find tooling, extract conventions
+- `/plan` - Get-it-right-first-time planning mode
+- `/debug` - Systematic diagnosis and root cause fixing
+- `/review` - Correctness, consistency, completeness validation
+- `/docs` - Documentation audit, generation, maintenance
+
+**Git Workflow Commands** (available after `/kernel-init`):
+- `/branch` - Create intention-focused branch for work
+- `/ship` - Commit, push, and create PR
+- `/parallelize` - Set up git worktrees for parallel development
+- `/handoff` - Generate context handoff for session continuation
+
+**For detailed command documentation**, see [docs/COMMANDS.md](docs/COMMANDS.md).
 
 ## Project Structure
 
