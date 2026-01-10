@@ -9,6 +9,10 @@
       "Bash(grep:*)",
       "Bash(git -C /Users/ariaxhan/Documents/claude-code-playground/kernel-plugin log --oneline)",
       "Bash(wc:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(find:*)"
       "Bash(git worktree:*)",
       "Bash(ls:*)"
     ],
