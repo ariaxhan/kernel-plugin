@@ -2,9 +2,11 @@
 """
 TaskMgr - A simple task management CLI
 """
+import csv
 import json
+import shutil
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -22,9 +24,26 @@ class TaskManager:
         return []
 
     def _save_tasks(self):
-        """Save tasks to JSON file"""
+        """Save tasks to JSON file with automatic backup"""
+        # Create backup if file exists
+        if self.db_path.exists():
+            backup_path = self.db_path.with_suffix('.json.backup')
+            shutil.copy2(self.db_path, backup_path)
+
+        # Save tasks
         with open(self.db_path, 'w') as f:
             json.dump(self.tasks, f, indent=2)
+
+    def _format_date(self, date_str: Optional[str]) -> str:
+        """Format ISO date string to 'Jan 15, 2026' format"""
+        if not date_str:
+            return ""
+        try:
+            # Parse ISO format date (YYYY-MM-DD)
+            dt = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+            return dt.strftime("%b %d, %Y")
+        except (ValueError, AttributeError):
+            return date_str
 
     def add_task(self, title: str, priority: str = "medium", due_date: Optional[str] = None):
         """Add a new task"""
@@ -34,7 +53,7 @@ class TaskManager:
             "priority": priority,
             "due_date": due_date,
             "completed": False,
-            "created_at": datetime.now().isoformat()
+            "created_at": datetime.now(timezone.utc).isoformat()
         }
         self.tasks.append(task)
         self._save_tasks()
@@ -51,7 +70,8 @@ class TaskManager:
         for task in filtered:
             status = "✓" if task['completed'] else "○"
             priority_icon = {"high": "🔴", "medium": "🟡", "low": "🟢"}.get(task['priority'], "⚪")
-            due = f" (due: {task['due_date']})" if task.get('due_date') else ""
+            due_date_formatted = self._format_date(task.get('due_date'))
+            due = f" (due: {due_date_formatted})" if due_date_formatted else ""
             print(f"{status} [{task['id']}] {priority_icon} {task['title']}{due}")
 
     def complete_task(self, task_id: int):
@@ -59,7 +79,7 @@ class TaskManager:
         for task in self.tasks:
             if task['id'] == task_id:
                 task['completed'] = True
-                task['completed_at'] = datetime.now().isoformat()
+                task['completed_at'] = datetime.now(timezone.utc).isoformat()
                 self._save_tasks()
                 print(f"Task {task_id} completed!")
                 return
@@ -85,11 +105,68 @@ class TaskManager:
         if total > 0:
             print(f"   Completion rate: {(completed/total)*100:.1f}%")
 
+    def export_csv(self, filename: str = "tasks_export.csv"):
+        """Export tasks to CSV file"""
+        if not self.tasks:
+            print("No tasks to export.")
+            return
+
+        try:
+            with open(filename, 'w', newline='') as csvfile:
+                fieldnames = ['id', 'title', 'priority', 'due_date', 'completed', 'created_at', 'completed_at']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+                writer.writeheader()
+                for task in self.tasks:
+                    row = {
+                        'id': task['id'],
+                        'title': task['title'],
+                        'priority': task['priority'],
+                        'due_date': task.get('due_date', ''),
+                        'completed': task['completed'],
+                        'created_at': task['created_at'],
+                        'completed_at': task.get('completed_at', '')
+                    }
+                    writer.writerow(row)
+
+            print(f"Tasks exported to {filename} ({len(self.tasks)} tasks)")
+        except IOError as e:
+            print(f"Error exporting to CSV: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    def optimize_db(self):
+        """Reindex task IDs to remove gaps"""
+        if not self.tasks:
+            print("No tasks to optimize.")
+            return
+
+        # Sort tasks by current ID to maintain order
+        self.tasks.sort(key=lambda x: x['id'])
+
+        # Track old IDs for reporting
+        old_ids = [task['id'] for task in self.tasks]
+        gaps_found = False
+
+        # Reindex sequentially
+        for new_id, task in enumerate(self.tasks, start=1):
+            if task['id'] != new_id:
+                gaps_found = True
+            task['id'] = new_id
+
+        self._save_tasks()
+
+        if gaps_found:
+            print(f"Database optimized: Reindexed {len(self.tasks)} tasks")
+            print(f"Old IDs: {old_ids}")
+            print(f"New IDs: {[task['id'] for task in self.tasks]}")
+        else:
+            print(f"Database already optimized: No gaps found in {len(self.tasks)} tasks")
+
 
 def main():
     """Main CLI interface"""
     if len(sys.argv) < 2:
-        print("Usage: taskmgr.py [add|list|complete|delete|stats] [args...]")
+        print("Usage: taskmgr.py [add|list|complete|delete|stats|export|optimize] [args...]")
         sys.exit(1)
 
     tm = TaskManager()
@@ -122,6 +199,13 @@ def main():
 
     elif command == "stats":
         tm.stats()
+
+    elif command == "export":
+        filename = sys.argv[2] if len(sys.argv) > 2 else "tasks_export.csv"
+        tm.export_csv(filename)
+
+    elif command == "optimize":
+        tm.optimize_db()
 
     else:
         print(f"Unknown command: {command}")

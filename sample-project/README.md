@@ -8,6 +8,8 @@ A simple command-line task manager with JSON storage.
 - Priority levels (high, medium, low)
 - Due dates
 - Statistics and completion tracking
+- Export tasks to CSV format
+- Database optimization to reindex task IDs
 
 ## Usage
 
@@ -16,6 +18,8 @@ python src/taskmgr.py add "Buy groceries" high 2026-01-15
 python src/taskmgr.py list
 python src/taskmgr.py complete 1
 python src/taskmgr.py stats
+python src/taskmgr.py export [filename]  # Default: tasks_export.csv
+python src/taskmgr.py optimize           # Reindex task IDs to remove gaps
 ```
 
 ## KERNEL Integration
