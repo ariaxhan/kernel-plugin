@@ -5,8 +5,12 @@
       "Bash(pip install:*)",
       "Bash(pip3 install:*)",
       "Bash(python3:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(grep:*)",
+      "Bash(git -C /Users/ariaxhan/Documents/claude-code-playground/kernel-plugin log --oneline)",
+      "Bash(wc:*)"
     ],
     "deny": []
-  }
+  },
+  "outputStyle": "default"
 }
