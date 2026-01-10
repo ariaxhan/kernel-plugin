@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "kernel",
-      "source": "https://github.com/ariaxhan/kernel-plugin",
+      "source": "./",
       "description": "Self-evolving project intelligence"
     }
   ]
