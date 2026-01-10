@@ -23,9 +23,20 @@
 
 ### TRULY NOVEL — Preserve these:
 
-1. **Self-reflection at session boundaries** — Stop hook prompts LLM to identify learnings
-2. **Automatic config evolution** — Hook writes directly to `.claude/rules/`
+1. **Self-reflection during work** — Claude recognizes patterns and creates artifacts
+2. **Full config evolution** — Creates commands, agents, skills, hooks, MCP configs, rules
 3. **Test maintenance awareness** — Subagent can be invoked when implementation changes
+
+### ARTIFACT TYPES KERNEL CREATES
+
+| Pattern Observed | Artifact Created |
+|-----------------|------------------|
+| Repeated multi-step workflow | `.claude/commands/*.md` |
+| Specialized expertise needed | `.claude/agents/*.md` |
+| External service integration | `.mcp.json` entry |
+| Pre/post tool processing | `.claude/settings.json` hooks |
+| Domain capability | `.claude/skills/*.md` |
+| Explicit preference | `.claude/rules/*.md` |
 
 ### ARCHITECTURAL DECISION
 

@@ -1,28 +1,7 @@
----
-description: Initialize KERNEL - enables automatic creation of commands, agents, skills, hooks, and rules
-allowed-tools: Read, Write, Glob, Bash
----
+# KERNEL Plugin Project
 
-# Initialize KERNEL
+This project builds KERNEL, a self-evolving Claude Code plugin.
 
-Set up this project for self-evolving Claude Code configuration.
-
-## Step 1: Create Directory Structure
-Ensure these exist:
-- `.claude/commands/`
-- `.claude/agents/`
-- `.claude/skills/`
-- `.claude/rules/`
-
-## Step 2: Scan Project
-Briefly read:
-- README.md for project purpose
-- package.json / pyproject.toml / Cargo.toml for tech stack
-
-## Step 3: Update CLAUDE.md
-Append to `.claude/CLAUDE.md` (create if needed):
-
-```markdown
 ## KERNEL: Self-Evolving Configuration
 
 KERNEL progressively builds Claude Code config based on observed patterns.
@@ -95,22 +74,3 @@ Check:
 - **Minimal**: Start simple, iterate later
 - **Ask first**: Confirm with user before creating if unsure
 - **Check existing**: Read configs first to avoid duplicates
-```
-
-## Step 4: Create Starter Files
-
-`.claude/rules/preferences.md`:
-```md
-# Project Preferences
-<!-- KERNEL adds preferences here -->
-```
-
-`.mcp.json` (if not exists):
-```json
-{"mcpServers": {}}
-```
-
-## Step 5: Report
-- KERNEL active
-- Will create commands, agents, skills, hooks, rules as patterns emerge
-- User can review anytime via `/config` or direct file access
