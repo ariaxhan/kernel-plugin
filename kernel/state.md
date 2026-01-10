@@ -6,7 +6,7 @@
 
 - Entry: kernel-plugin (Claude Code plugin, not executable)
 - Core modules: kernel/ (template files), .claude/ (KERNEL's own config)
-- Templates: kernel/banks/ (4 banks), kernel/modes/ (4 modes), kernel/hooks/ (3 hooks)
+- Templates: kernel/banks/ (5 banks), kernel/commands/ (10 commands), kernel/hooks/ (3 hooks)
 - Docs: README.md, SETUP.md, CONFIG-TYPES.md
 - MCP: claude-docs-server.py, .mcp.json
 - Config: .claude/rules/ (preferences, invariants, patterns, decisions)
@@ -40,6 +40,12 @@
 
 ## Active Preferences
 → See .claude/rules/preferences.md
+
+## Documentation State
+- docs_style: null  # REFERENCE | PROCEDURAL | NARRATIVE (set once, lock)
+- doc_kinds: []     # tutorial, how-to, reference, explanation
+- last_audit: null  # ISO date
+- exceptions: []    # budget violations with rationale
 
 ## Recent Decisions (max 5, link to decisions.md for full log)
 [TO POPULATE: as architecture decisions are made]

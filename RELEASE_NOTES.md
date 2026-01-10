@@ -1,0 +1,174 @@
+# KERNEL v1.0.0
+
+**Self-Evolving Project Intelligence for Claude Code**
+
+The first release of KERNEL - a Claude Code plugin that progressively builds your project configuration based on observed patterns instead of upfront speculation.
+
+---
+
+## What's Included
+
+### Core Commands
+
+| Command | Description |
+|---------|-------------|
+| `/kernel-init` | Initialize KERNEL in any project - analyzes stack, detects tier, creates customized CLAUDE.md |
+| `/discover` | Map codebase, find tooling, extract conventions, populate state.md |
+| `/plan` | Get-it-right-first-time planning methodology |
+| `/debug` | Systematic diagnosis and root cause fixing |
+| `/review` | Correctness, consistency, completeness validation |
+| `/docs` | Documentation audit, generation, and maintenance |
+| `/kernel-status` | Show config health and staleness report |
+| `/kernel-prune` | Review and remove stale config entries |
+| `/handoff` | Generate context handoff brief for session continuation |
+| `/parallelize` | Set up git worktrees for parallel development |
+
+### Knowledge Banks
+
+Token-optimized methodology templates (~140 lines each):
+
+- **PLANNING-BANK.md** - Mental simulation, interface definition first
+- **DEBUGGING-BANK.md** - Reproduce → Isolate → Instrument → Root cause → Fix
+- **DISCOVERY-BANK.md** - Reconnaissance, map terrain, extract conventions
+- **REVIEW-BANK.md** - Correctness, convention adherence, invariants
+- **DOCUMENTATION-BANK.md** - Style selection, budgets, maintenance system
+
+Banks load on-demand (zero token cost until referenced via mode commands).
+
+### Skills
+
+Lightweight capability pointers (~50-100 tokens each):
+
+- **worktree-parallelization** - Detect tasks suitable for git worktree parallel development
+
+### Rules Templates
+
+Starter templates for project-specific patterns:
+
+- `preferences.md` - Formatting, presentation, tool choices
+- `assumptions.md` - Extract assumptions before executing
+- `invariants.md` - Non-negotiable contracts
+- `patterns.md` - Discovered coding patterns
+- `decisions.md` - Architecture decision log
+
+### Configuration Reference
+
+- **CONFIG-TYPES.md** - Complete guide on when to use Agents vs Skills vs Commands vs Rules vs Hooks vs MCP (decision tree, comparison table, anti-patterns)
+
+### Sample Project
+
+Included `sample-project/` with a TaskMgr CLI demonstrating KERNEL in action with:
+- CSV export functionality
+- Database optimization
+- Encryption support
+- API sync capabilities
+- Full test suite
+
+---
+
+## Installation
+
+### Via Plugin Menu (Recommended)
+
+1. In Claude Code, run `/plugin`
+2. Navigate to **Marketplaces** tab
+3. Select **+ Add Marketplace**
+4. Enter: `https://github.com/ariaxhan/kernel-plugin`
+5. Go to **Discover** tab and enable the KERNEL plugin
+
+### Programmatic
+
+Add to `~/.claude/settings.json`:
+```json
+{
+  "extraKnownMarketplaces": {
+    "kernel-marketplace": {
+      "source": { "source": "github", "repo": "ariaxhan/kernel-plugin" }
+    }
+  },
+  "enabledPlugins": { "kernel@kernel-marketplace": {} }
+}
+```
+
+---
+
+## How It Works
+
+### Philosophy
+
+- **CORRECTNESS > SPEED** - One working implementation beats three debug cycles
+- **INVESTIGATE BEFORE IMPLEMENT** - Search for existing patterns first
+- **DETECT, THEN ACT** - Don't assume tooling exists, find it
+- **PROTECT STATE** - Backup before mutation, confirm before deletion
+
+### The Bank Architecture
+
+Instead of loading 6000+ tokens of coding rules upfront, KERNEL uses:
+
+1. **Banks** (~140 lines each) - Methodology templates, load on-demand
+2. **Skills** (~50-100 tokens) - Lightweight pointers, auto-discovered
+3. **Commands** (0 tokens until used) - On-demand workflow invocation
+4. **State** (~70 lines) - Single source of truth, updated by modes
+
+**Total baseline cost: ~200 tokens** (vs ~6000+ traditional approach)
+
+### Pattern → Artifact Mapping
+
+When patterns emerge during work, KERNEL creates the appropriate Claude Code artifact:
+
+| Pattern | Artifact Created |
+|---------|------------------|
+| Repeated workflow | `.claude/commands/workflow-name.md` |
+| Specialized task | `.claude/agents/specialist-name.md` |
+| External service | Entry in `.mcp.json` |
+| Pre/post processing | Hook in `.claude/settings.json` |
+| Domain capability | `.claude/skills/capability.md` |
+| Explicit preference | `.claude/rules/topic.md` |
+
+---
+
+## Requirements
+
+- Claude Code CLI **v1.0.33+**
+- Python 3.8+ (optional, for Claude Docs MCP server)
+
+---
+
+## Platform Support
+
+Works on macOS, Linux, and Windows.
+
+---
+
+## Known Limitations
+
+- `extraKnownMarketplaces` only works in interactive mode (not CI/headless)
+- Banks are project-agnostic templates - fill slots as you learn your codebase
+- Config registry tracking (`memory/config_registry.jsonl`) requires manual bootstrap for existing configs
+
+---
+
+## What's Next
+
+Planned for future releases:
+- More stack-specific banks (React, FastAPI, Go, Rust)
+- Auto-detection of config staleness via hook integration
+- Team preset configurations
+- Integration with CI/CD for validation
+
+---
+
+## Contributing
+
+Contributions welcome. Read `CONFIG-TYPES.md` before creating artifacts and follow the philosophy in `CLAUDE.md`.
+
+---
+
+## License
+
+MIT
+
+---
+
+**Author**: Aria Han
+**Repository**: https://github.com/ariaxhan/kernel-plugin

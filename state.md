@@ -41,6 +41,12 @@
 ## Active Preferences
 → See .claude/rules/preferences.md
 
+## Documentation State
+- docs_style: null  # REFERENCE | PROCEDURAL | NARRATIVE (set once, lock)
+- doc_kinds: []     # tutorial, how-to, reference, explanation
+- last_audit: null  # ISO date
+- exceptions: []    # budget violations with rationale
+
 ## Recent Decisions (max 5, link to decisions.md for full log)
 [TO POPULATE: as architecture decisions are made]
 

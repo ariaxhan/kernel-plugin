@@ -84,16 +84,17 @@ Should I create a /deploy command for it?"
 
 ## Features
 
-### Coding Prompt Bank
+### Knowledge Banks
 
-KERNEL includes `CODING-PROMPT-BANK.MD`, a curated set of coding principles:
+KERNEL includes token-optimized methodology banks:
 
-- **Core Philosophy**: Parse don't read, correctness over speed, minimal code
-- **Execution Laws**: Investigate first, single source of truth, fail fast
-- **Validation Protocols**: Pre-write and pre-commit checklists
-- **Complexity Tiers**: T1 (hackathon), T2 (production), T3 (critical)
+- **PLANNING-BANK** - Get-it-right-first-time methodology
+- **DEBUGGING-BANK** - Systematic diagnosis and root cause fixing
+- **DISCOVERY-BANK** - Codebase reconnaissance and pattern extraction
+- **REVIEW-BANK** - Correctness, consistency, completeness validation
+- **DOCUMENTATION-BANK** - Docs style selection, budgets, maintenance
 
-During initialization, KERNEL selects only the relevant sections based on your project's stack and tier.
+Banks load on-demand via mode commands (~140 lines each, zero cost until used).
 
 ### Configuration Type Distinctions
 
@@ -146,41 +147,42 @@ Markdown files describing patterns and examples for specific domains.
 **Rules** (User preferences)
 Imperative rules grouped by topic that Claude follows.
 
-### Included Components
+### Included Commands
 
-- **`/kernel-init`** - Initialize KERNEL for any project
-- **`/kernel:status`** - Show config health and staleness report
-- **`/kernel:prune`** - Review and remove stale config entries
-- **`test-maintainer` agent** - Generates and maintains tests following project conventions
-- **Claude Docs MCP Server** - Fetches latest Claude Code documentation
+| Command | Description |
+|---------|-------------|
+| `/kernel-init` | Initialize KERNEL for any project |
+| `/discover` | Map codebase, find tooling, extract conventions |
+| `/plan` | Get-it-right-first-time planning mode |
+| `/debug` | Systematic diagnosis and root cause fixing |
+| `/review` | Correctness, consistency, completeness validation |
+| `/docs` | Documentation audit, generation, maintenance |
+| `/kernel-status` | Show config health and staleness report |
+| `/kernel-prune` | Review and remove stale config entries |
+| `/handoff` | Generate context handoff for session continuation |
+| `/parallelize` | Set up git worktrees for parallel development |
 
 ## Project Structure
 
 ```
 kernel-plugin/
-├── .claude/
-│   ├── CLAUDE.md              # Project config (KERNEL-generated)
-│   ├── commands/
-│   │   ├── kernel-init.md     # Initialization command
-│   │   ├── kernel-status.md   # Config health report
-│   │   └── kernel-prune.md    # Stale config removal
-│   ├── agents/                 # Specialist agents
-│   ├── skills/                 # Domain capabilities
-│   ├── rules/
-│   │   └── preferences.md     # User preferences
-│   └── settings.json          # Hooks configuration
-├── kernel/
-│   ├── CODING-PROMPT-BANK.MD  # Base coding rules
-│   ├── commands/
-│   │   └── init.md            # Init command template
-│   └── agents/
-│       └── test-maintainer.md # Test specialist agent
-├── memory/
-│   └── config_registry.jsonl  # Config usage tracking
-├── .mcp.json                   # MCP server configuration
-├── claude-docs-server.py       # Documentation MCP server
-├── README.md                   # This file
-└── SETUP.md                    # Detailed setup guide
+├── kernel/                    # Templates (copied to projects)
+│   ├── banks/                 # Methodology banks
+│   │   ├── PLANNING-BANK.md
+│   │   ├── DEBUGGING-BANK.md
+│   │   ├── DISCOVERY-BANK.md
+│   │   ├── REVIEW-BANK.md
+│   │   └── DOCUMENTATION-BANK.md
+│   ├── commands/              # Mode commands
+│   ├── hooks/                 # Hook templates
+│   ├── rules/                 # Rule templates
+│   └── state.md               # World model template
+├── commands/                  # Plugin commands
+├── docs/
+│   └── documentation-files/   # Doc templates & scripts
+├── CONFIG-TYPES.md            # Artifact type guide
+├── README.md
+└── SETUP.md
 ```
 
 ## Philosophy
@@ -247,4 +249,4 @@ MIT
 
 ## Contributing
 
-Contributions welcome. Please read the coding rules in `CODING-PROMPT-BANK.MD` before submitting PRs.
+Contributions welcome. Read `CONFIG-TYPES.md` before creating artifacts and review the banks in `kernel/banks/` for methodology.
