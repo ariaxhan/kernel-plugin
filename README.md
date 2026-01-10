@@ -167,7 +167,9 @@ KERNEL provides **10 workflow commands** with clear "when/what" descriptions:
 - `/parallelize` - When: Parallel work needed. What: Set up git worktrees for multiple branches
 - `/handoff` - When: Ending session. What: Generate context handoff for continuation
 
-**For detailed documentation**, see [docs/COMMANDS.md](docs/COMMANDS.md).
+**For detailed documentation**:
+- [docs/COMMANDS.md](docs/COMMANDS.md) - Complete command reference
+- [docs/CONTEXT-LEVELS.md](docs/CONTEXT-LEVELS.md) - Understanding user/project context
 
 ## Project Structure
 
