@@ -10,7 +10,9 @@
       "Bash(git -C /Users/ariaxhan/Documents/claude-code-playground/kernel-plugin log --oneline)",
       "Bash(wc:*)",
       "Bash(python -m pytest:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   },
