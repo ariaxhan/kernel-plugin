@@ -7,6 +7,17 @@ allowed-tools: Read, Write, Glob, Bash, Grep
 
 Build a project-specific CLAUDE.md using CODING-PROMPT-BANK.MD as substrate.
 
+## Step 0: Read Configuration Types Guide
+
+**CRITICAL**: Before creating ANY artifacts, read CONFIG-TYPES.md in the plugin root.
+
+This guide defines WHEN to use:
+- AGENTS vs SKILLS vs COMMANDS vs RULES vs HOOKS vs MCP
+
+Understand the distinctions to avoid creating wrong artifact types.
+
+If CONFIG-TYPES.md doesn't exist in the target project, copy it from the plugin location.
+
 ## Step 1: Locate Prompt Bank
 
 Search for CODING-PROMPT-BANK.MD in order:
@@ -122,11 +133,22 @@ You are a specialist in X...
 
 ### Before Completing Tasks
 
-1. Workflow repeated? → Command
-2. Specialized expertise? → Agent
-3. External service? → MCP config
-4. Pre/post processing? → Hook
-5. Explicit preference? → Rule
+**REFER TO CONFIG-TYPES.md FOR FULL DECISION TREE**
+
+Quick checklist:
+1. Task delegation needing isolation? → Agent
+2. Teaching Claude HOW to do something? → Skill
+3. Manual workflow invoke? → Command
+4. Automatic on event? → Hook
+5. General behavior instruction? → Rule (or CLAUDE.md if project-wide)
+6. External service? → MCP config
+
+**Critical distinctions**:
+- AGENT = Task delegation (runs isolated)
+- SKILL = Teaching (Claude auto-discovers)
+- COMMAND = Manual prompt (you invoke with /name)
+- RULE = Behavioral instruction (modular)
+- CLAUDE.md = Project constitution (global fundamentals)
 
 ### Guidelines
 
@@ -134,6 +156,7 @@ You are a specialist in X...
 - Minimal: Start simple
 - Ask first: Confirm if unsure
 - Check existing: Avoid duplicates
+- **Read CONFIG-TYPES.md before creating artifacts**
 ```
 
 ## Step 5: Create Starter Files

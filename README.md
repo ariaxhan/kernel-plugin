@@ -86,6 +86,19 @@ KERNEL includes `CODING-PROMPT-BANK.MD`, a curated set of coding principles:
 
 During initialization, KERNEL selects only the relevant sections based on your project's stack and tier.
 
+### Configuration Type Distinctions
+
+**IMPORTANT**: See [CONFIG-TYPES.md](CONFIG-TYPES.md) for the complete guide on when to use each artifact type.
+
+This is the **most critical resource** for understanding KERNEL. It includes:
+- Decision tree for choosing the right artifact type
+- Detailed comparison of agents vs skills vs commands vs rules
+- Common confusion scenarios with examples
+- Anti-patterns to avoid
+- Validation checklist
+
+**Read CONFIG-TYPES.md BEFORE creating any artifacts** to ensure you're using the right type for your use case.
+
 ### Artifact Types
 
 **Commands** (`/command-name`)
@@ -127,6 +140,8 @@ Imperative rules grouped by topic that Claude follows.
 ### Included Components
 
 - **`/kernel-init`** - Initialize KERNEL for any project
+- **`/kernel:status`** - Show config health and staleness report
+- **`/kernel:prune`** - Review and remove stale config entries
 - **`test-maintainer` agent** - Generates and maintains tests following project conventions
 - **Claude Docs MCP Server** - Fetches latest Claude Code documentation
 
@@ -137,7 +152,9 @@ kernel-plugin/
 ├── .claude/
 │   ├── CLAUDE.md              # Project config (KERNEL-generated)
 │   ├── commands/
-│   │   └── kernel-init.md     # Initialization command
+│   │   ├── kernel-init.md     # Initialization command
+│   │   ├── kernel-status.md   # Config health report
+│   │   └── kernel-prune.md    # Stale config removal
 │   ├── agents/                 # Specialist agents
 │   ├── skills/                 # Domain capabilities
 │   ├── rules/
@@ -149,6 +166,8 @@ kernel-plugin/
 │   │   └── init.md            # Init command template
 │   └── agents/
 │       └── test-maintainer.md # Test specialist agent
+├── memory/
+│   └── config_registry.jsonl  # Config usage tracking
 ├── .mcp.json                   # MCP server configuration
 ├── claude-docs-server.py       # Documentation MCP server
 ├── README.md                   # This file
@@ -165,6 +184,44 @@ KERNEL follows these principles:
 4. **Check Existing**: Read configs first to avoid duplicates
 
 Configuration should grow organically from actual usage, not speculation.
+
+## Config Lifecycle
+
+KERNEL doesn't just add configuration - it also identifies stale entries for removal.
+
+### Reference Tracking
+
+When you use a command, agent, skill, or rule, KERNEL updates `memory/config_registry.jsonl`:
+```json
+{"type": "command", "name": "deploy", "created": "2025-01-01T00:00:00Z", "last_referenced": "2025-01-09T00:00:00Z", "reference_count": 12}
+```
+
+### Health Check
+
+Run `/kernel:status` to see config health:
+```
+Config entries: 12
+  Active (referenced last 7 days): 8
+  Stale (no reference 30+ days): 3
+  New (< 7 days old): 1
+```
+
+### Pruning
+
+Run `/kernel:prune` to review stale entries:
+```
+STALE: [command] old-workflow
+  Created: 2024-11-01
+  Last referenced: 2024-12-01 (39 days ago)
+  Reference count: 2
+
+  Remove this entry? [Y/n/skip all]
+```
+
+- KERNEL never auto-deletes; always prompts for confirmation
+- Entries flagged after 30 sessions with zero references
+- Rejecting keeps the entry and resets its staleness timer
+- All removals are logged for audit trail
 
 ## Requirements
 
