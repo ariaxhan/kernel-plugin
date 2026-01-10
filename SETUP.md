@@ -1,204 +1,159 @@
 # KERNEL Setup Guide
 
-This guide walks you through installing and configuring KERNEL for Claude Code.
+This guide walks you through installing KERNEL for Claude Code.
 
 ## Table of Contents
 
 1. [Prerequisites](#prerequisites)
-2. [Installation Methods](#installation-methods)
-   - [macOS Installation](#macos-installation)
-   - [Windows Installation](#windows-installation)
-3. [Initializing KERNEL](#initializing-kernel)
-4. [Configuration](#configuration)
-5. [Optional: Claude Docs MCP Server](#optional-claude-docs-mcp-server)
-6. [Troubleshooting](#troubleshooting)
+2. [Installation](#installation)
+   - [Method 1: Via Plugin Menu (Recommended)](#method-1-via-plugin-menu-recommended)
+   - [Method 2: Programmatic Installation](#method-2-programmatic-installation)
+3. [Enabling the Plugin](#enabling-the-plugin)
+4. [Initializing KERNEL](#initializing-kernel)
+5. [Configuration](#configuration)
+6. [Optional: Claude Docs MCP Server](#optional-claude-docs-mcp-server)
+7. [Troubleshooting](#troubleshooting)
 
 ---
 
 ## Prerequisites
 
-### Required
-
-- **Claude Code CLI**: KERNEL is a plugin for Claude Code
+- **Claude Code CLI v1.0.33+**: Plugins require version 1.0.33 or later
   ```bash
-  # Verify Claude Code is installed
   claude --version
   ```
 
-- **Git**: For cloning the repository
-  ```bash
-  git --version
-  ```
+---
 
-### Optional
+## Installation
 
-- **Python 3.8+**: Only needed if using the Claude Docs MCP server
-  ```bash
-  # macOS/Linux
-  python3 --version
+### Method 1: Via Plugin Menu (Recommended)
 
-  # Windows
-  python --version
-  ```
+This is the most reliable installation method.
 
-- **pip**: For installing Python dependencies
-  ```bash
-  # macOS/Linux
-  pip3 --version
+**Step 1: Open the Plugin Menu**
 
-  # Windows
-  pip --version
-  ```
+In Claude Code, type:
+```
+/plugin
+```
+
+**Step 2: Navigate to Marketplaces**
+
+Use arrow keys or tab to navigate:
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Plugins  Discover   Installed   Marketplaces  (←/→ or tab to cycle)    │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+Select **Marketplaces**.
+
+**Step 3: Add the KERNEL Marketplace**
+
+Select **+ Add Marketplace**:
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ Manage marketplaces                                                     │
+│                                                                         │
+│ ❯ + Add Marketplace                                                     │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Step 4: Enter the Marketplace URL**
+
+When prompted, enter the full GitHub URL:
+```
+┌─ Add Marketplace ───────────────────────────────────────────────────────┐
+│                                                                         │
+│ Enter marketplace source:                                               │
+│ Examples:                                                               │
+│  • owner/repo (GitHub)                                                  │
+│  • git@github.com:owner/repo.git (SSH)                                  │
+│  • https://example.com/marketplace.json                                 │
+│  • ./path/to/marketplace                                                │
+│                                                                         │
+│     https://github.com/ariaxhan/kernel-plugin                           │
+╰─────────────────────────────────────────────────────────────────────────╯
+```
+
+Enter:
+```
+https://github.com/ariaxhan/kernel-plugin
+```
+
+**Step 5: Enable the Plugin**
+
+After adding the marketplace, navigate to **Discover** or **Installed** and enable the KERNEL plugin:
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ User                                                                    │
+│                                                                         │
+│ ❯ kernel Plugin · kernel-marketplace · ✔ enabled                        │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Installation Methods
+### Method 2: Programmatic Installation
 
-Choose your operating system and installation method.
+For teams or automated setups, add the marketplace to your settings.
+
+**Option A: User-level (applies to all your projects)**
+
+Edit `~/.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "kernel-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "ariaxhan/kernel-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "kernel@kernel-marketplace": {}
+  }
+}
+```
+
+**Option B: Project-level (for team sharing)**
+
+Add to your project's `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "kernel-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "ariaxhan/kernel-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "kernel@kernel-marketplace": {}
+  }
+}
+```
+
+When team members trust the repository folder, Claude Code will prompt them to install the marketplace.
+
+**Note**: The `extraKnownMarketplaces` method only works in interactive mode. It does not work in CI/CD or headless (`-p`) mode.
 
 ---
 
-## macOS Installation
+## Enabling the Plugin
 
-### Method A: Global Installation (Recommended)
+After installation, verify the plugin is enabled:
 
-Install KERNEL globally so it's available for all your projects.
+1. Run `/plugin` in Claude Code
+2. Go to **Installed** tab
+3. Confirm **kernel Plugin** shows **✔ enabled**
 
-```bash
-# 1. Create Claude plugins directory if it doesn't exist
-mkdir -p ~/.claude/plugins
-
-# 2. Clone KERNEL into the plugins directory
-git clone https://github.com/yourusername/kernel-plugin.git ~/.claude/plugins/kernel
-
-# 3. Copy the prompt bank to your global Claude config
-cp ~/.claude/plugins/kernel/kernel/CODING-PROMPT-BANK.MD ~/.claude/CODING-PROMPT-BANK.MD
-```
-
-Now you can run `/kernel-init` in any project.
-
-### Method B: Per-Project Installation
-
-Install KERNEL directly into a specific project.
-
-```bash
-# 1. Navigate to your project
-cd /path/to/your/project
-
-# 2. Create the .claude directory structure
-mkdir -p .claude/commands .claude/agents .claude/skills .claude/rules
-
-# 3. Copy KERNEL files
-cp /path/to/kernel-plugin/.claude/commands/kernel-init.md .claude/commands/
-cp /path/to/kernel-plugin/kernel/CODING-PROMPT-BANK.MD ./
-
-# 4. Initialize (see next section)
-```
-
-### Method C: Manual Setup (No Git)
-
-If you can't use git, manually create the files:
-
-1. Create `.claude/commands/kernel-init.md` with the content from this repository
-2. Create `CODING-PROMPT-BANK.MD` in your project root or `~/.claude/`
-3. Run `/kernel-init` in Claude Code
-
----
-
-## Windows Installation
-
-### Method A: Global Installation (Recommended)
-
-Install KERNEL globally so it's available for all your projects.
-
-**Using PowerShell:**
-
-```powershell
-# 1. Create Claude plugins directory if it doesn't exist
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\plugins"
-
-# 2. Clone KERNEL into the plugins directory
-git clone https://github.com/yourusername/kernel-plugin.git "$env:USERPROFILE\.claude\plugins\kernel"
-
-# 3. Copy the prompt bank to your global Claude config
-Copy-Item "$env:USERPROFILE\.claude\plugins\kernel\kernel\CODING-PROMPT-BANK.MD" "$env:USERPROFILE\.claude\CODING-PROMPT-BANK.MD"
-```
-
-**Using Command Prompt (cmd):**
-
-```cmd
-:: 1. Create Claude plugins directory if it doesn't exist
-mkdir "%USERPROFILE%\.claude\plugins"
-
-:: 2. Clone KERNEL into the plugins directory
-git clone https://github.com/yourusername/kernel-plugin.git "%USERPROFILE%\.claude\plugins\kernel"
-
-:: 3. Copy the prompt bank to your global Claude config
-copy "%USERPROFILE%\.claude\plugins\kernel\kernel\CODING-PROMPT-BANK.MD" "%USERPROFILE%\.claude\CODING-PROMPT-BANK.MD"
-```
-
-**Using Git Bash (recommended for Windows):**
-
-```bash
-# 1. Create Claude plugins directory if it doesn't exist
-mkdir -p ~/.claude/plugins
-
-# 2. Clone KERNEL into the plugins directory
-git clone https://github.com/yourusername/kernel-plugin.git ~/.claude/plugins/kernel
-
-# 3. Copy the prompt bank to your global Claude config
-cp ~/.claude/plugins/kernel/kernel/CODING-PROMPT-BANK.MD ~/.claude/CODING-PROMPT-BANK.MD
-```
-
-### Method B: Per-Project Installation
-
-Install KERNEL directly into a specific project.
-
-**Using PowerShell:**
-
-```powershell
-# 1. Navigate to your project
-cd C:\path\to\your\project
-
-# 2. Create the .claude directory structure
-New-Item -ItemType Directory -Force -Path ".claude\commands", ".claude\agents", ".claude\skills", ".claude\rules"
-
-# 3. Copy KERNEL files
-Copy-Item "C:\path\to\kernel-plugin\.claude\commands\kernel-init.md" ".claude\commands\"
-Copy-Item "C:\path\to\kernel-plugin\kernel\CODING-PROMPT-BANK.MD" ".\"
-
-# 4. Initialize (see next section)
-```
-
-**Using Command Prompt (cmd):**
-
-```cmd
-:: 1. Navigate to your project
-cd C:\path\to\your\project
-
-:: 2. Create the .claude directory structure
-mkdir .claude\commands .claude\agents .claude\skills .claude\rules
-
-:: 3. Copy KERNEL files
-copy "C:\path\to\kernel-plugin\.claude\commands\kernel-init.md" ".claude\commands\"
-copy "C:\path\to\kernel-plugin\kernel\CODING-PROMPT-BANK.MD" "."
-
-:: 4. Initialize (see next section)
-```
-
-### Method C: Manual Setup (No Git)
-
-If you can't use git, manually create the files:
-
-1. Create `.claude\commands\kernel-init.md` with the content from this repository
-2. Create `CODING-PROMPT-BANK.MD` in your project root or `%USERPROFILE%\.claude\`
-3. Run `/kernel-init` in Claude Code
-
-### Windows Path Notes
-
-- Use `%USERPROFILE%` in cmd or `$env:USERPROFILE` in PowerShell instead of `~`
-- Windows paths use backslashes (`\`), but Git Bash accepts forward slashes (`/`)
-- The `.claude` directory works the same on Windows as on macOS/Linux
+If not enabled, select it and enable it.
 
 ---
 
@@ -217,17 +172,8 @@ claude
 
 ### What Initialization Does
 
-1. **Locates the Prompt Bank**: Searches for `CODING-PROMPT-BANK.MD` in:
-   - Project root
-   - `~/.claude/CODING-PROMPT-BANK.MD`
-   - Plugin location
-
-2. **Analyzes Your Project**: Detects:
-   - Stack (language, framework, tools)
-   - Tier (T1 hackathon, T2 production, T3 critical)
-   - Domain (API, CLI, library, app)
-
-3. **Creates Directory Structure**:
+1. **Analyzes Your Project**: Detects stack, tier (T1/T2/T3), and domain
+2. **Creates Directory Structure**:
    ```
    .claude/
    ├── commands/      # Slash commands
@@ -235,20 +181,10 @@ claude
    ├── skills/        # Domain capabilities
    └── rules/         # User preferences
    ```
-
-4. **Generates `.claude/CLAUDE.md`**: A customized configuration with:
-   - Selected coding rules from the prompt bank
-   - Project-specific constraints
-   - KERNEL artifact templates
-
-5. **Creates Starter Files**:
-   - `.claude/settings.json` (hooks configuration)
-   - `.claude/rules/preferences.md` (user preferences)
-   - `.mcp.json` (if not exists)
+3. **Generates `.claude/CLAUDE.md`**: Customized configuration with coding rules
+4. **Creates Starter Files**: Settings, rules, and templates
 
 ### Initialization Output
-
-After running `/kernel-init`, you'll see a summary:
 
 ```
 KERNEL Initialization Complete
@@ -357,168 +293,81 @@ Edit `.claude/rules/preferences.md`:
 
 ## Optional: Claude Docs MCP Server
 
-KERNEL includes an MCP server that provides access to Claude Code documentation.
+KERNEL includes an MCP server for accessing Claude Code documentation.
 
-### macOS Installation
+### Installation
 
 ```bash
-# 1. Navigate to the kernel plugin
-cd ~/.claude/plugins/kernel  # or your project directory
-
-# 2. Install Python dependencies
+# Install Python dependency
 pip3 install requests
 
-# 3. Make the server executable
+# Make executable (macOS/Linux)
 chmod +x claude-docs-server.py
 ```
 
-**Configuration** - Add to your `.mcp.json`:
+### Configuration
 
+Add to your `.mcp.json`:
+
+**macOS/Linux:**
 ```json
 {
   "mcpServers": {
     "claude-docs": {
       "command": "python3",
-      "args": ["/Users/yourusername/.claude/plugins/kernel/claude-docs-server.py"]
+      "args": ["/path/to/kernel-plugin/claude-docs-server.py"]
     }
   }
 }
 ```
 
-### Windows Installation
-
-**Using PowerShell:**
-
-```powershell
-# 1. Navigate to the kernel plugin
-cd "$env:USERPROFILE\.claude\plugins\kernel"
-
-# 2. Install Python dependencies
-pip install requests
-```
-
-**Using Command Prompt:**
-
-```cmd
-:: 1. Navigate to the kernel plugin
-cd "%USERPROFILE%\.claude\plugins\kernel"
-
-:: 2. Install Python dependencies
-pip install requests
-```
-
-**Configuration** - Add to your `.mcp.json`:
-
+**Windows:**
 ```json
 {
   "mcpServers": {
     "claude-docs": {
       "command": "python",
-      "args": ["C:\\Users\\yourusername\\.claude\\plugins\\kernel\\claude-docs-server.py"]
+      "args": ["C:\\path\\to\\kernel-plugin\\claude-docs-server.py"]
     }
   }
 }
 ```
 
-**Note for Windows**: Use `python` instead of `python3`, and use double backslashes (`\\`) in JSON paths, or forward slashes (`/`) which also work on Windows.
-
-### Usage
-
-Once configured, Claude Code can fetch documentation:
-
-```
-"What are the available hooks in Claude Code?"
-→ Fetches and summarizes the hooks documentation
-```
-
-### Available Documentation Pages
-
-The server can fetch these pages from docs.anthropic.com:
-
-- `overview`, `quickstart`, `memory`
-- `common-workflows`, `ide-integrations`
-- `mcp`, `github-actions`, `sdk`
-- `hooks`, `settings`, `slash-commands`
-- `cli-reference`, `interactive-mode`
-- `troubleshooting`, `security`, `costs`
-
 ---
 
 ## Troubleshooting
 
+### Marketplace not appearing after adding
+
+**Cause**: Cache or sync issue.
+
+**Fix**: Restart Claude Code and run `/plugin` again.
+
+### "extraKnownMarketplaces" not working
+
+**Cause**: Only works in interactive mode.
+
+**Fix**: Use Method 1 (Plugin Menu) or ensure you're not running in headless mode.
+
+### Plugin shows but won't enable
+
+**Cause**: May need to trust the marketplace first.
+
+**Fix**:
+1. Run `/plugin`
+2. Go to **Marketplaces**
+3. Select the kernel marketplace
+4. Accept any trust prompts
+
 ### "Command not found: /kernel-init"
 
-**Cause**: The command file isn't in the right location.
+**Cause**: Plugin not properly enabled.
 
 **Fix**:
-```bash
-# Verify the file exists
-ls -la .claude/commands/kernel-init.md
+1. Verify plugin is enabled via `/plugin` → **Installed**
+2. If not visible, re-add the marketplace
 
-# If missing, copy it
-cp ~/.claude/plugins/kernel/.claude/commands/kernel-init.md .claude/commands/
-```
-
-### "Could not find CODING-PROMPT-BANK.MD"
-
-**Cause**: The prompt bank file isn't in any of the search locations.
-
-**Fix**:
-```bash
-# Option 1: Copy to project root
-cp ~/.claude/plugins/kernel/kernel/CODING-PROMPT-BANK.MD ./
-
-# Option 2: Copy to global location
-cp ~/.claude/plugins/kernel/kernel/CODING-PROMPT-BANK.MD ~/.claude/
-```
-
-### "KERNEL creates too many artifacts"
-
-**Cause**: KERNEL is being too aggressive.
-
-**Fix**: KERNEL should always ask before creating. If it's not:
-1. Check `.claude/CLAUDE.md` has the "Ask first" guideline
-2. Re-run `/kernel-init` to reset the configuration
-
-### "MCP server not connecting"
-
-**Cause**: Python path or permissions issue.
-
-**Fix (macOS):**
-```bash
-# 1. Verify Python works
-python3 --version
-
-# 2. Check script permissions
-chmod +x claude-docs-server.py
-
-# 3. Test the server directly
-echo '{"method": "tools/list"}' | python3 claude-docs-server.py
-
-# 4. Use absolute path in .mcp.json
-```
-
-**Fix (Windows PowerShell):**
-```powershell
-# 1. Verify Python works
-python --version
-
-# 2. Test the server directly
-echo '{"method": "tools/list"}' | python claude-docs-server.py
-
-# 3. Ensure the path in .mcp.json uses double backslashes or forward slashes
-```
-
-**Fix (Windows cmd):**
-```cmd
-:: 1. Verify Python works
-python --version
-
-:: 2. Test the server directly
-echo {"method": "tools/list"} | python claude-docs-server.py
-```
-
-### "Initialization detects wrong stack/tier"
+### Initialization detects wrong stack/tier
 
 **Cause**: Project doesn't have standard config files.
 

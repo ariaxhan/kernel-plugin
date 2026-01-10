@@ -27,24 +27,33 @@ KERNEL captures these patterns and creates the appropriate Claude Code artifacts
 
 ### 1. Install the Plugin
 
-**macOS / Linux / Git Bash:**
-```bash
-# Clone into your Claude Code plugins directory
-git clone https://github.com/yourusername/kernel-plugin.git ~/.claude/plugins/kernel
+**Via Plugin Menu (Recommended):**
 
-# Or copy directly into an existing project
-cp -r kernel-plugin/.claude/commands/kernel-init.md your-project/.claude/commands/
-cp kernel-plugin/kernel/CODING-PROMPT-BANK.MD your-project/
+1. In Claude Code, run `/plugin`
+2. Navigate to **Marketplaces** tab
+3. Select **+ Add Marketplace**
+4. Enter: `https://github.com/ariaxhan/kernel-plugin`
+5. Go to **Discover** tab and enable the KERNEL plugin
+
+```
+┌─ Add Marketplace ───────────────────────────────────────────────────────┐
+│ Enter marketplace source:                                               │
+│     https://github.com/ariaxhan/kernel-plugin                           │
+╰─────────────────────────────────────────────────────────────────────────╯
 ```
 
-**Windows (PowerShell):**
-```powershell
-# Clone into your Claude Code plugins directory
-git clone https://github.com/yourusername/kernel-plugin.git "$env:USERPROFILE\.claude\plugins\kernel"
+**Programmatic (for teams):**
 
-# Or copy directly into an existing project
-Copy-Item "kernel-plugin\.claude\commands\kernel-init.md" "your-project\.claude\commands\"
-Copy-Item "kernel-plugin\kernel\CODING-PROMPT-BANK.MD" "your-project\"
+Add to `~/.claude/settings.json` or your project's `.claude/settings.json`:
+```json
+{
+  "extraKnownMarketplaces": {
+    "kernel-marketplace": {
+      "source": { "source": "github", "repo": "ariaxhan/kernel-plugin" }
+    }
+  },
+  "enabledPlugins": { "kernel@kernel-marketplace": {} }
+}
 ```
 
 See [SETUP.md](SETUP.md) for detailed installation instructions.
@@ -225,17 +234,12 @@ STALE: [command] old-workflow
 
 ## Requirements
 
-- Claude Code CLI installed and configured
-- Git (for cloning)
-- Python 3.8+ (for Claude Docs MCP server, optional)
+- Claude Code CLI **v1.0.33+** (plugins require this version or later)
+- Python 3.8+ (optional, for Claude Docs MCP server)
 
 ## Platform Support
 
-KERNEL works on both **macOS** and **Windows**. See [SETUP.md](SETUP.md) for platform-specific installation instructions including:
-- PowerShell commands for Windows
-- Command Prompt (cmd) alternatives
-- Git Bash compatibility
-- Path configuration differences
+KERNEL works on **macOS**, **Linux**, and **Windows**. The plugin installation method (`/plugin` menu) works the same on all platforms.
 
 ## License
 
