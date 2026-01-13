@@ -93,8 +93,12 @@ KERNEL includes token-optimized methodology banks:
 - **DISCOVERY-BANK** - Codebase reconnaissance and pattern extraction
 - **REVIEW-BANK** - Correctness, consistency, completeness validation
 - **DOCUMENTATION-BANK** - Docs style selection, budgets, maintenance
+- **RESEARCH-BANK** - Find existing solutions before writing code
+- **BUILD-BANK** - Full pipeline from idea to working code
+- **ITERATION-BANK** - Continuous improvement methodology
+- **TEARITAPART-BANK** - Critical review before implementation
 
-Banks load on-demand via mode commands (~140 lines each, zero cost until used).
+Banks load on-demand via mode commands (~100-150 lines each, zero cost until used).
 
 ### Arbiter Context Compression
 
@@ -201,6 +205,10 @@ Imperative rules grouped by topic that Claude follows.
 | `/debug` | Systematic diagnosis and root cause fixing |
 | `/review` | Correctness, consistency, completeness validation |
 | `/docs` | Documentation audit, generation, maintenance |
+| `/research` | Deep research - find solutions before writing code |
+| `/build` | Full pipeline from idea to working code |
+| `/iterate` | Continuous improvement for existing code |
+| `/tearitapart` | Critical review before implementation |
 | `/kernel-status` | Show config health and staleness report |
 | `/kernel-prune` | Review and remove stale config entries |
 | `/handoff` | Generate context handoff for session continuation |
@@ -217,7 +225,11 @@ kernel-plugin/
 │   │   ├── DEBUGGING-BANK.md
 │   │   ├── DISCOVERY-BANK.md
 │   │   ├── REVIEW-BANK.md
-│   │   └── DOCUMENTATION-BANK.md
+│   │   ├── DOCUMENTATION-BANK.md
+│   │   ├── RESEARCH-BANK.md
+│   │   ├── BUILD-BANK.md
+│   │   ├── ITERATION-BANK.md
+│   │   └── TEARITAPART-BANK.md
 │   ├── commands/              # Mode commands
 │   ├── hooks/                 # Hook templates
 │   ├── rules/                 # Rule templates

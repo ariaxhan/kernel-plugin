@@ -1,3 +1,47 @@
+# KERNEL v1.4.0
+
+**Bank Architecture Expansion + New Development Commands**
+
+This release adds four major new commands with token-optimized methodology banks.
+
+---
+
+## New Commands
+
+| Command | Description |
+|---------|-------------|
+| `/research` | Deep research phase - find existing solutions before writing code |
+| `/build` | Full pipeline from idea to working code |
+| `/iterate` | Continuous improvement for existing code |
+| `/tearitapart` | Critical review before implementation |
+
+## New Knowledge Banks
+
+Token-optimized methodology banks (~100-150 lines each):
+
+- **RESEARCH-BANK.md** - Find existing packages, document pitfalls, source diversity
+- **BUILD-BANK.md** - Full pipeline: idea -> research -> plan -> review -> execute -> validate
+- **ITERATION-BANK.md** - Deep understanding, improvement identification, prioritization
+- **TEARITAPART-BANK.md** - Critical review checklists, issue documentation, recommendations
+
+## Architecture: Slim Commands + Banks
+
+Commands are now ~15-30 lines that reference methodology banks on-demand:
+- **Before:** 300-500 line standalone commands (~4000 tokens per invocation)
+- **After:** 15-30 line commands (~100 tokens) + banks loaded when needed (~1500 tokens)
+- **Result:** 50-75% token reduction for most uses
+
+## Token Math Example
+
+```
+/research invocation (old): ~4000 tokens (full 15KB command)
+/research invocation (new): ~100 tokens (slim command)
+  + ~1500 tokens (bank, if methodology needed)
+  = ~1600 tokens total (60% reduction)
+```
+
+---
+
 # KERNEL v1.0.0
 
 **Self-Evolving Project Intelligence for Claude Code**
