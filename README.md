@@ -1,8 +1,8 @@
 # KERNEL
 
-**Project Intelligence for Claude Code**
+**Project Intelligence for Claude Code** | v1.6.0
 
-KERNEL is a Claude Code plugin that creates tailored configuration for your project. It analyzes your codebase and builds configuration that fits - coding rules from your patterns, commands for workflows you repeat, hooks for tools you use. Methodology is applied automatically based on context.
+KERNEL is a Claude Code plugin that creates tailored configuration for your project. It analyzes your codebase and builds configuration that fits - coding rules from your patterns, commands for workflows you repeat, hooks for tools you use. Methodology is applied automatically based on context, and session state persists across conversations.
 
 ---
 
@@ -13,7 +13,8 @@ Claude Code is powerful, but every project is different. KERNEL bridges this gap
 1. **Analyzing your project** - stack, patterns, conventions
 2. **Creating tailored config** - only what this project needs
 3. **Applying methodology automatically** - no commands to remember
-4. **Evolving over time** - configuration grows as patterns emerge
+4. **Tracking session state** - context survives across conversations
+5. **Evolving over time** - configuration grows as patterns emerge
 
 ---
 
@@ -76,6 +77,47 @@ Bad:  "Created /test-all because the template includes it"
 ### Minimal Commands
 
 Only 11 explicit commands exist. Everything else is automatic.
+
+---
+
+## Session Tracking
+
+KERNEL maintains context across sessions with the `_meta/` structure:
+
+```
+_meta/
+├── INDEX.md              # Navigation hub
+├── _session.md           # Session context (blockers, decisions, infrastructure)
+├── _learnings.md         # Change log (append-only, dated entries)
+├── context/
+│   └── active.md         # Current work state
+└── research/
+    └── *.md              # Investigation outputs
+```
+
+### Session Protocol
+
+```
+SESSION START:
+1. Read _meta/_session.md for context
+2. Read _meta/context/active.md for current work
+3. Check kernel/state.md for project reality
+
+DURING:
+- Update active.md as you work
+- Log learnings to _meta/_learnings.md immediately
+
+SESSION END:
+- Update _meta/_session.md
+- Commit and push
+```
+
+### Why This Matters
+
+- **Context survives** - No re-explaining project state each session
+- **Learnings compound** - Patterns discovered once, available forever
+- **Research persists** - Investigation outputs saved, not lost in chat history
+- **Work visibility** - Clear tracking of what's in progress
 
 ---
 
@@ -178,6 +220,13 @@ Only if the stack benefits:
 
 ```
 kernel-plugin/
+├── _meta/                 # Session tracking (v1.6.0+)
+│   ├── INDEX.md           # Navigation hub
+│   ├── _session.md        # Session context
+│   ├── _learnings.md      # Change log
+│   ├── context/
+│   │   └── active.md      # Current work
+│   └── research/          # Investigation outputs
 ├── commands/              # 11 explicit commands
 │   ├── kernel-init.md
 │   ├── build.md
