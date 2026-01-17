@@ -1,6 +1,6 @@
 # KERNEL Plugin Meta Index
 
-**Navigation hub for project metadata.**
+**Navigation hub for project metadata.** | v2.0.0
 
 ---
 
@@ -19,14 +19,26 @@
 
 ```
 _meta/
-├── INDEX.md              ← You are here
-├── _session.md           ← Session tracking (read on start)
-├── _learnings.md         ← Learnings log (append-only)
+├── INDEX.md              <- You are here
+├── _session.md           <- Session tracking (read on start)
+├── _learnings.md         <- Learnings log (append-only)
 ├── context/
-│   └── active.md         ← Current work state
+│   └── active.md         <- Current work state
 └── research/
-    └── *.md              ← Investigation outputs
+    └── *.md              <- Investigation outputs
 ```
+
+---
+
+## Project Stats (v2.0.0)
+
+| Component | Count | Location |
+|-----------|-------|----------|
+| Commands | 14 | `commands/` |
+| Agents | 13 | `kernel/agents/` |
+| Banks | 10 | `kernel/banks/` |
+| Rules | 11 | `kernel/rules/` |
+| Skills | 3 | `kernel/skills/` |
 
 ---
 
@@ -42,8 +54,11 @@ _meta/
 
 ## Related
 
-- `kernel/state.md` - KERNEL's project reality tracker (tooling, conventions)
-- `.claude/rules/` - Evolved patterns from learnings
+- `kernel/state.md` - KERNEL's project reality tracker
+- `kernel/agents/` - Specialized agent templates
+- `kernel/skills/` - Auto-triggered capabilities
+- `kernel/rules/` - Foundational constraints
+- `kernel/banks/` - Methodology templates
 - `.claude/CLAUDE.md` - Project philosophy
 
 ---

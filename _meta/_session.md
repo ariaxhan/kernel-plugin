@@ -1,6 +1,6 @@
 # KERNEL Plugin Session Context
 
-tokens: ~150 | type: context | evolving
+tokens: ~200 | type: context | evolving
 
 ---
 
@@ -8,31 +8,38 @@ tokens: ~150 | type: context | evolving
 
 ## Active Work
 
-<!-- Update when switching context -->
-
 | Branch | Status | Next |
 |--------|--------|------|
-| main | stable | - |
+| main | v2.0.0 released | - |
 
 ## Recent Decisions
 
-<!-- Log significant decisions here -->
-
-- 2026-01-17: Aligning with CodingVault _meta system for better session tracking
+- 2026-01-17: Released v2.0.0 with agents, skills, and complete development intelligence
+- 2026-01-17: Bumped to 2.0.0 (was going to be 1.7.0) due to significance of changes
+- 2026-01-17: Added 13 agents, 3 skills, 4 rules, 3 commands from CodingVault patterns
+- 2026-01-17: Aligned with CodingVault _meta system for better session tracking
 
 ## Blockers
-
-<!-- Anything blocking progress -->
 
 None currently.
 
 ## Infrastructure Notes
 
-<!-- Persistent env info: versions, credentials locations, etc. -->
-
-- Plugin type: Claude Code skill/command plugin
-- Structure: KERNEL methodology (banks, modes, rules, state)
+- Plugin type: Claude Code plugin
+- Version: 2.0.0
+- Structure: KERNEL methodology (banks, modes, rules, state, agents, skills)
 - Parent vault: CodingVault
+- Release URL: https://github.com/ariaxhan/kernel-plugin/releases/tag/v2.0.0
+
+## Component Counts
+
+| Component | Count |
+|-----------|-------|
+| Commands | 14 |
+| Rules | 11 |
+| Banks | 10 |
+| Agents | 13 |
+| Skills | 3 |
 
 ---
 
