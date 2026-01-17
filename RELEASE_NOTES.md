@@ -1,3 +1,81 @@
+# KERNEL v2.0.0
+
+**Agents, Skills, and Complete Development Intelligence**
+
+Major release that adds specialized agents, auto-triggered skills, and comprehensive rules. KERNEL now provides a complete development intelligence system.
+
+---
+
+## Agents (13 New)
+
+Specialized agents that spawn proactively based on context.
+
+### Fast Validation (Haiku)
+| Agent | Purpose |
+|-------|---------|
+| `test-runner` | Run tests, report failures |
+| `type-checker` | Validate types |
+| `lint-fixer` | Auto-fix lint issues |
+| `build-validator` | Verify builds |
+| `dependency-auditor` | Check CVEs, outdated packages |
+| `git-historian` | Analyze git history |
+| `git-sync` | Auto-commit and push |
+| `metadata-sync` | Update active.md |
+
+### Deep Analysis (Opus)
+| Agent | Purpose |
+|-------|---------|
+| `code-reviewer` | Find issues before commit |
+| `security-scanner` | Find vulnerabilities |
+| `test-generator` | Generate test cases |
+| `api-documenter` | Update API docs |
+| `perf-profiler` | Profile bottlenecks |
+| `refactor-scout` | Find improvement opportunities |
+| `migration-planner` | Plan version transitions |
+| `frontend-stylist` | Design UI styles |
+| `media-handler` | Process images/video/audio |
+| `database-architect` | Design schemas and migrations |
+| `debugger-deep` | Root cause analysis |
+
+## Skills (3 New)
+
+Auto-triggered capabilities based on keywords.
+
+| Skill | Triggers |
+|-------|----------|
+| `debug` | "bug", "error", "broken", "fix" |
+| `research` | "research", "investigate", "learn about" |
+| `coding-prompt-bank` | Project init, "coding rules" |
+
+## Rules (4 New)
+
+| Rule | Purpose |
+|------|---------|
+| `self-evolution` | **CRITICAL** - Capture learnings in system |
+| `commit-discipline` | Atomic, frequent commits |
+| `investigation-first` | Search before implementing |
+| `fail-fast` | Exit early, clear errors |
+
+## Commands (3 New)
+
+| Command | Purpose |
+|---------|---------|
+| `/validate` | Pre-commit gate: types + lint + tests |
+| `/iterate` | Continuous improvement on existing code |
+| `/tearitapart` | Critical review before implementing |
+
+## Summary
+
+- **13 agents** for specialized task execution
+- **3 skills** for auto-triggered capabilities
+- **4 new rules** for development discipline
+- **3 new commands** for validation and review
+- **Total: 14 commands, 11 rules, 10 banks, 13 agents, 3 skills**
+
+This release transforms KERNEL from configuration scaffolding into a complete development intelligence system.
+
+---
+
 # KERNEL v1.6.0
 
 **Session Tracking + Long-Term Maintainability**
