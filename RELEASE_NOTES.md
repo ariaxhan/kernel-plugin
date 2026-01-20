@@ -1,3 +1,66 @@
+# KERNEL v3.0.0
+
+**Project Memory, Performance Tracking, and Subagent Persistence**
+
+Major release adding project memory system, automatic performance benchmarking, and critical subagent output rules. Repository renamed from `kernel-plugin` to `kernel-claude`.
+
+---
+
+## Project Memory System
+
+New `kernel/project-notes/` structure for persistent knowledge:
+
+| File | Purpose |
+|------|---------|
+| `bugs.md` | Past bugs and their solutions |
+| `decisions.md` | Architecture decisions (ADRs) |
+| `key_facts.md` | Infrastructure knowledge |
+| `issues.md` | Work log |
+
+### Memory Protocol Rule
+
+New `memory-protocol.md` rule enforces checking memory BEFORE acting:
+- Check `bugs.md` before debugging
+- Check `decisions.md` before architecture changes
+- Check `key_facts.md` before infrastructure lookups
+
+### Context Cascade Rule
+
+New `context-cascade.md` rule for efficient phase handoffs:
+- Pass outputs only, not full context
+- Prevents context window bloat
+- Each phase stays lean
+
+## Automatic Performance Tracking
+
+New `_meta/benchmark/` structure (always-on, no opt-in):
+
+| File | Purpose |
+|------|---------|
+| `metrics.jsonl` | Quantitative session data |
+| `journal.md` | Qualitative agent reflections |
+| `summary.md` | Weekly rollups |
+
+## Subagent Output Rule
+
+New `kernel/rules/subagent-output.md` enforces file persistence:
+- Every subagent MUST write to files
+- Prevents knowledge loss when context closes
+- Integration with `_meta/` folder structure
+
+## Repository Rename
+
+- **Old:** `kernel-plugin`
+- **New:** `kernel-claude`
+
+This aligns with `kernel-cursor` for the Cursor editor variant.
+
+## Cleanup
+
+- Removed `arbiter-syntax.md` rule
+
+---
+
 # KERNEL v2.0.0
 
 **Agents, Skills, and Complete Development Intelligence**
@@ -330,7 +393,7 @@ Included `sample-project/` with a TaskMgr CLI demonstrating KERNEL in action wit
 1. In Claude Code, run `/plugin`
 2. Navigate to **Marketplaces** tab
 3. Select **+ Add Marketplace**
-4. Enter: `https://github.com/ariaxhan/kernel-plugin`
+4. Enter: `https://github.com/ariaxhan/kernel-claude`
 5. Go to **Discover** tab and enable the KERNEL plugin
 
 ### Programmatic
@@ -340,7 +403,7 @@ Add to `~/.claude/settings.json`:
 {
   "extraKnownMarketplaces": {
     "kernel-marketplace": {
-      "source": { "source": "github", "repo": "ariaxhan/kernel-plugin" }
+      "source": { "source": "github", "repo": "ariaxhan/kernel-claude" }
     }
   },
   "enabledPlugins": { "kernel@kernel-marketplace": {} }
@@ -428,4 +491,4 @@ MIT
 ---
 
 **Author**: Aria Han
-**Repository**: https://github.com/ariaxhan/kernel-plugin
+**Repository**: https://github.com/ariaxhan/kernel-claude

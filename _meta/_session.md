@@ -31,7 +31,7 @@ None currently.
 - Version: 2.0.0
 - Structure: KERNEL methodology (banks, modes, rules, state, agents, skills)
 - Parent vault: CodingVault
-- Release URL: https://github.com/ariaxhan/kernel-plugin/releases/tag/v2.0.0
+- Release URL: https://github.com/ariaxhan/kernel-claude/releases/tag/v2.0.0
 
 ## Component Counts
 

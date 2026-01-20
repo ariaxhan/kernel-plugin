@@ -24,7 +24,7 @@ Claude Code is powerful, but every project is different. KERNEL bridges this gap
 ### 1. Install the Plugin
 
 ```
-/install-plugin https://github.com/ariaxhan/kernel-plugin
+/install-plugin https://github.com/ariaxhan/kernel-claude
 ```
 
 ### 2. Initialize Your Project
@@ -217,7 +217,7 @@ SESSION END:
 ## Project Structure
 
 ```
-kernel-plugin/
+kernel-claude/
 ├── _meta/                 # Session tracking
 │   ├── INDEX.md
 │   ├── _session.md

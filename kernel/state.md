@@ -4,7 +4,7 @@
 ## Repo Map (max 15 lines)
 [TO DISCOVER: entrypoints, module boundaries, key directories]
 
-- Entry: kernel-plugin (Claude Code plugin, not executable)
+- Entry: kernel-claude (Claude Code plugin, not executable)
 - Core modules: kernel/ (template files), .claude/ (KERNEL's own config)
 - Templates: kernel/banks/ (5 banks), kernel/commands/ (10 commands), kernel/hooks/ (3 hooks)
 - Docs: README.md, SETUP.md, CONFIG-TYPES.md

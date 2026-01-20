@@ -18,7 +18,7 @@ KERNEL v2.0.0 is a complete development intelligence system with:
 ## Full Structure
 
 ```
-kernel-plugin/
+kernel-claude/
 ├── .claude/                    # Project-level config
 │   ├── CLAUDE.md              # Philosophy + session protocol
 │   ├── rules/

@@ -36,7 +36,7 @@ Example:
 ```markdown
 ## 2026-01-17
 
-**Project:** kernel-plugin
+**Project:** kernel-claude
 **Type:** pattern
 **What:** Auto-spawn metadata-sync and git-sync agents at end of response
 **Why:** Eliminates manual metadata updates; keeps state always current

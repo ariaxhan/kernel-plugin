@@ -58,7 +58,7 @@ v2.0.0 released. All planned work done.
 - Version: 2.0.0
 - Commit: 941105a
 - Tag: v2.0.0
-- URL: https://github.com/ariaxhan/kernel-plugin/releases/tag/v2.0.0
+- URL: https://github.com/ariaxhan/kernel-claude/releases/tag/v2.0.0
 
 ## Next Steps (Future Sessions)
 

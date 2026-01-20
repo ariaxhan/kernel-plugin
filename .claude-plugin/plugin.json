@@ -1,10 +1,10 @@
 {
   "name": "kernel",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Self-evolving project intelligence - evolvable scaffolding with banks, modes, and discovery",
   "author": {
     "name": "Aria Han",
     "url": "https://github.com/ariaxhan"
   },
-  "homepage": "https://github.com/ariaxhan/kernel-plugin"
+  "homepage": "https://github.com/ariaxhan/kernel-claude"
 }

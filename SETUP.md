@@ -73,13 +73,13 @@ When prompted, enter the full GitHub URL:
 │  • https://example.com/marketplace.json                                 │
 │  • ./path/to/marketplace                                                │
 │                                                                         │
-│     https://github.com/ariaxhan/kernel-plugin                           │
+│     https://github.com/ariaxhan/kernel-claude                           │
 ╰─────────────────────────────────────────────────────────────────────────╯
 ```
 
 Enter:
 ```
-https://github.com/ariaxhan/kernel-plugin
+https://github.com/ariaxhan/kernel-claude
 ```
 
 **Step 5: Enable the Plugin**
@@ -109,7 +109,7 @@ Edit `~/.claude/settings.json`:
     "kernel-marketplace": {
       "source": {
         "source": "github",
-        "repo": "ariaxhan/kernel-plugin"
+        "repo": "ariaxhan/kernel-claude"
       }
     }
   },
@@ -129,7 +129,7 @@ Add to your project's `.claude/settings.json`:
     "kernel-marketplace": {
       "source": {
         "source": "github",
-        "repo": "ariaxhan/kernel-plugin"
+        "repo": "ariaxhan/kernel-claude"
       }
     }
   },
@@ -315,7 +315,7 @@ Add to your `.mcp.json`:
   "mcpServers": {
     "claude-docs": {
       "command": "python3",
-      "args": ["/path/to/kernel-plugin/claude-docs-server.py"]
+      "args": ["/path/to/kernel-claude/claude-docs-server.py"]
     }
   }
 }
@@ -327,7 +327,7 @@ Add to your `.mcp.json`:
   "mcpServers": {
     "claude-docs": {
       "command": "python",
-      "args": ["C:\\path\\to\\kernel-plugin\\claude-docs-server.py"]
+      "args": ["C:\\path\\to\\kernel-claude\\claude-docs-server.py"]
     }
   }
 }
