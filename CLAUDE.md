@@ -1,35 +1,16 @@
-# Kernel
+# KERNEL
 
-**The Complete AI Coding OS for Claude Code.**
+**The AI Coding OS** | v4.0.0
 
----
-
-## SUBAGENT OUTPUT RULE (CRITICAL - READ FIRST)
-
-```
-EVERY SUBAGENT MUST WRITE TO FILES.
-
-When spawning ANY subagent:
-1. Tell it WHERE to write (absolute path in _meta/ or relevant folder)
-2. Tell it WHAT format (.md, structured)
-3. Subagent MUST write findings to file BEFORE returning
-4. Subagent output in terminal is ALSO required (both, not either/or)
-
-Example prompt to subagent:
-"Research X. Write findings to /project/_meta/research/output.md.
-Also return summary to me."
-
-NEVER spawn subagents that only return to you.
-Their work is LOST if not written to files.
-```
+tokens: ~800 | standalone | self-evolving
 
 ---
 
-## Philosophy
+## Ψ:CORE
 
 ```
 CORRECTNESS > SPEED
-One working implementation beats three debug cycles.
+Working first attempt beats iterate + debug.
 Think before typing. Simulate before running.
 
 EVERY LINE IS LIABILITY
@@ -40,245 +21,216 @@ INVESTIGATE BEFORE IMPLEMENT
 Never assume. Search for existing patterns first.
 Copy what works. Adapt minimally.
 
-DETECT, THEN ACT
-Don't assume tooling exists. Find it.
-Don't assume conventions. Discover them.
+LSP-FIRST NAVIGATION
+goToDefinition, findReferences, hover.
+Never guess APIs. Let the tooling tell you.
 
-PROTECT STATE
-Backup before mutation. Confirm before deletion.
-Make time explicit (UTC + timezone).
+MEMORY-FIRST PROTOCOL
+Check _memory/ → kernel/project-notes/ → _meta/
+before discovering from scratch. 10s vs 10min.
 
-SELF-EVOLUTION
-When you learn something → UPDATE THE SYSTEM.
-Patterns that work → encode them.
-Repeated mistakes → patch the rules.
+FAIL FAST
+Exit early. Clear errors. No silent failures.
+If uncertain: STOP → ASK → WAIT.
 ```
+
+●subagent|MUST:write_to_file+return_summary|path:absolute|format:md
 
 ---
 
-## Session Protocol
+## →:AUTONOMY
 
 ```
-SESSION START:
-1. Read _meta/_session.md for context
-2. Read _meta/context/active.md for current work
-3. Check kernel/state.md for project reality
-4. Check for uncommitted work (git status)
-5. Suggest next actions proactively
+ACT: reversible, allowed_tools, context_reads, code_exploration
+PAUSE: destructive, irreversible, security_sensitive
+ASK: multi_step, design_decision, ambiguous_intent, uncertain
+```
+
+●agents|spawn_proactively|don't_wait_for_permission
+●assumptions|STOP→EXTRACT→CONFIRM→PROCEED (see rules/assumptions.md)
+
+---
+
+## ≠:ANTI
+
+●assume_silently|→extract_assumptions+confirm
+●implement_before_investigate|→search_patterns_first
+●serial_when_parallel|→2+_independent_tasks=parallel_agents
+●swallow_errors|→fail_fast+clear_messages
+●manual_git|→@git-sync_handles_commits
+●work_on_main|→branch/worktree_isolation
+●guess_APIs|→LSP_goToDefinition
+●rediscover_known|→check_memory_first
+
+---
+
+## Γ:SESSION
+
+```
+START:
+1. Read _meta/_session.md (context)
+2. Read _meta/context/active.md (current work)
+3. Check kernel/state.md (project reality)
+4. git status (uncommitted work?)
 
 DURING:
-- Update active.md as you work
+- Update active.md as work progresses
 - Log learnings to _meta/_learnings.md immediately
-- Commit after each logical unit (see Git Discipline below)
+- Spawn agents proactively
 
-SESSION END:
-- Update _meta/_session.md
-- Archive active.md if work is complete
-- Commit and push (ALWAYS)
+END:
+- @metadata-sync → updates _meta/
+- @git-sync → commit + push
+Both run in parallel. No manual git from main agent.
 ```
 
 ---
 
-## Auto-Sync Pattern (MANDATORY)
+## Σ:METHODOLOGY
 
-Two agents handle metadata + git operations at the END of each response:
+Auto-detect task type → load relevant bank. No commands needed.
 
-### `@metadata-sync`
-Updates `_meta/context/active.md` and `_meta/_learnings.md`.
+| context | auto-apply | bank |
+|---------|-----------|------|
+| "implement","add","create","build" | research→plan→review | PLANNING |
+| "bug","error","fix","broken" | reproduce→isolate→root_cause→fix | DEBUGGING |
+| "best way to","how should I" | search_packages→3+_sources→decide | RESEARCH |
+| "is this right","check this" | correctness→conventions→edge_cases | REVIEW |
+| "what's in this codebase" | map_structure→detect_tooling→patterns | DISCOVERY |
+| "refactor","improve","optimize" | understand_deeply→identify→prioritize | ITERATION |
+| "what could go wrong","critique" | challenge_assumptions→find_risks | TEARITAPART |
 
-**Spawn at end of response if:**
-- Files were created/edited/deleted
-- Tasks completed
-- Decisions made
-- Learnings discovered
-- Status changed
+---
 
-### `@git-sync`
-Commits and pushes all changes.
+## Φ:ROUTING
 
-**Spawn at end of response if:**
-- Files changed (any type)
-- Metadata updated
-- Any work completed
+| tier | model | use_for |
+|------|-------|---------|
+| 1 | ollama | drafts,brainstorm,variations (free,unlimited,local) |
+| 2 | gemini | web_search,bulk_read(50+files),research (2M_ctx,free) |
+| 3 | sonnet | secondary_impl,synthesis,file_writes (workhorse) |
+| 4 | opus | core_impl,planning,design,orchestrate,review (quality>cost) |
+| 5 | haiku | test_exec,lint,typecheck (trivial_only) |
 
-### Usage Pattern
+●orchestrator|spawns_subagents → model:opus
+●draft_refine|ollama:generate_variations → opus:select_best
+●research|gemini:analyze → opus|sonnet:synthesize
 
-Every response should end with (if changes were made):
+---
+
+## Ω:KEYWORDS
+
+| keyword | mode | behavior |
+|---------|------|----------|
+| ulw, fast | ultrawork | spawn 3-5 parallel agents |
+| ralph | persistence | loop until verified complete |
+| eco | ecomode | route to cheapest capable model |
+
+---
+
+## Ξ:GIT
+
+●atomic_commits|one_logical_change=one_commit
+●conventional_format|`{type}({scope}): {subject}`
+●push_immediately|no_accumulating_unpushed
+●types|feat,fix,refactor,docs,test,chore,perf
+●auto_sync|@git-sync + @metadata-sync at end of response
+
+---
+
+## Δ:QUALITY
+
+Before committing:
+1. Tests pass
+2. Types check
+3. Lint clean
+4. Security scan (npm audit, pip-audit, etc.)
+
+●block_commit_if_any_gate_fails
+
+---
+
+## ∇:EVOLUTION
+
+●pattern_repeats(2+)|→encode_to_rules
+●mistake_repeats|→add_prevention_rule
+●discovery|→log:_meta/_learnings.md + update:relevant_config
+●deletion_is_evolution|kill_stale_rules
+●commit_evolution|`chore(system): {what evolved}`
+
+---
+
+## COMPONENTS
+
+### Commands (16)
+
+| cmd | purpose |
+|-----|---------|
+| /kernel-init | Initialize KERNEL for a project |
+| /kernel-user-init | Set up user-level defaults (~/.claude/) |
+| /kernel-status | Config health and staleness report |
+| /kernel-prune | Remove stale config entries |
+| /build | research → plan → implement → validate |
+| /iterate | analyze → improve → test |
+| /tearitapart | critical review → challenge → report |
+| /validate | parallel: types, lint, tests |
+| /branch | create worktree for isolated work |
+| /ship | commit → push → create PR |
+| /parallelize | multi-worktree parallel development |
+| /release | bump version → tag → push |
+| /docs | documentation mode |
+| /design | load philosophy → audit UI → build |
+| /repo-init | generate KERNEL config for any codebase |
+| /handoff | context brief for session continuity |
+
+### Agents (19)
+
+**Fast (haiku):** test-runner, type-checker, lint-fixer, build-validator, dependency-auditor, git-historian, git-sync, metadata-sync
+
+**Deep (opus):** code-reviewer, security-scanner, test-generator, api-documenter, perf-profiler, refactor-scout, migration-planner, frontend-stylist, media-handler, database-architect, debugger-deep
+
+### Rules (13)
+
+assumptions, commit-discipline, context-cascade, decisions, fail-fast, frontend-conventions, invariants, investigation-first, memory-protocol, methodology, patterns, preferences, self-evolution
+
+### Banks (10)
+
+PLANNING, DEBUGGING, RESEARCH, REVIEW, DISCOVERY, ITERATION, TEARITAPART, DOCUMENTATION, BUILD, CODING-PROMPT
+
+### Skills (3)
+
+debug (auto: bug/error/fix), research (auto: investigate/learn), coding-prompt-bank (project init/coding rules)
+
+---
+
+## MEMORY
 
 ```
-Sync: @metadata-sync
-Sync: @git-sync
-```
+_memory/                          # Check FIRST before acting
+├── architecture.md               # System structure
+├── conventions.md                # Naming, patterns
+├── dependencies.md               # External services
+├── hotspots.md                   # Complex areas
+├── bugs.md                       # Past solutions
+└── decisions.md                  # ADRs
 
-Both run in parallel. **No manual git commands from main agent. No manual active.md updates in main response.**
-
----
-
-## Git Commit Discipline
-
-```
-SMALL COMMITS > BIG COMMITS
-Each commit = one logical unit
-Each commit = independently useful
-Each commit = can be reverted cleanly
-
-WHEN TO COMMIT:
-- After implementing a single function/feature
-- After fixing a single bug
-- After any system evolution
-- Every 3-5 messages if actively coding
-- ALWAYS before session end
-
-FORMAT:
-<type>(<scope>): <subject>
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-
-TYPES: feat | fix | docs | style | refactor | test | chore
-
-ANTI-PATTERNS:
-- Commits with 10+ files (split them)
-- "WIP" commits (name what's actually done)
-- Mixing unrelated changes
-- Ending session with uncommitted work
+kernel/project-notes/             # Persistent knowledge
+├── bugs.md                       # Past bug solutions
+├── decisions.md                  # Architecture decisions
+├── key_facts.md                  # Infrastructure knowledge
+└── issues.md                     # Work log
 ```
 
 ---
 
-## Commands (14)
+## FRONTEND
 
-| Command | Purpose |
-|---------|---------|
-| `/build` | Full pipeline: idea → research → plan → implement → validate |
-| `/ship` | Commit, push, create PR from branch |
-| `/branch` | Create isolated worktree for new work |
-| `/validate` | Pre-commit gate: types + lint + tests |
-| `/iterate` | Continuous improvement on existing code |
-| `/tearitapart` | Critical review before implementing |
-| `/parallelize` | Set up multiple worktrees for parallel work |
-| `/release` | Bump version, tag, push release |
-| `/docs` | Documentation mode: audit, generate, maintain |
-| `/handoff` | Generate context brief for session continuity |
-| `/kernel-init` | Initialize KERNEL for a new project |
-| `/kernel-user-init` | Initialize user-level KERNEL at ~/.claude/ |
-| `/kernel-status` | Show config health and staleness report |
-| `/kernel-prune` | Remove stale config entries |
+●sophistication_through_restraint|beauty_through_function
+●system_fonts_first|never:Inter,Geist
+●no_emoji_in_UI|no_AI_aesthetic
+●one_signature_element|customize_until_unrecognizable
+●see:rules/frontend-conventions.md + rules/design-philosophy.md
 
 ---
 
-## Agents (19)
-
-**Spawn proactively. Don't wait for permission.**
-
-### Fast Validation (haiku)
-| Agent | Trigger | Purpose |
-|-------|---------|---------|
-| `test-runner` | Any code written | Run tests |
-| `type-checker` | TypeScript/Python | Check types |
-| `lint-fixer` | Any code | Auto-fix lint |
-| `build-validator` | Significant changes | Verify builds |
-| `dependency-auditor` | package.json changes | Check CVEs |
-| `git-historian` | "why" or legacy code | Understand history |
-| `git-sync` | End of response | Auto-commit changes |
-| `metadata-sync` | End of response | Update _meta files |
-
-### Deep Analysis (opus)
-| Agent | Trigger | Purpose |
-|-------|---------|---------|
-| `code-reviewer` | PR or "review this" | Find issues |
-| `security-scanner` | Auth/input handling | Find vulnerabilities |
-| `test-generator` | New function/module | Generate tests |
-| `api-documenter` | API changes | Update docs |
-| `perf-profiler` | "slow" or perf concern | Profile bottlenecks |
-| `refactor-scout` | "improve" or messy code | Find opportunities |
-| `migration-planner` | Major change | Plan transition |
-| `frontend-stylist` | UI/CSS work | Design visual styles |
-| `media-handler` | Image/video/audio | Process multimedia |
-| `database-architect` | Schema/query work | Design data layer |
-| `debugger-deep` | Complex bugs | Root cause analysis |
-
----
-
-## Rules (12)
-
-| Rule | Purpose |
-|------|---------|
-| `self-evolution.md` | Update system when you learn |
-| `commit-discipline.md` | Small, atomic, frequent commits |
-| `assumptions.md` | Extract and verify before executing |
-| `investigation-first.md` | Find patterns before writing |
-| `fail-fast.md` | Exit early, clear errors |
-| `invariants.md` | Non-negotiable constraints |
-| `methodology.md` | KERNEL development methodology |
-| `patterns.md` | Reusable code patterns |
-| `preferences.md` | Formatting and style preferences |
-| `decisions.md` | Logged architectural decisions |
-| `memory-protocol.md` | Check project memory BEFORE acting |
-| `context-cascade.md` | Pass outputs only between phases |
-
----
-
-## Project Notes (4 templates)
-
-In `kernel/project-notes/` - check these FIRST:
-
-| File | Purpose |
-|------|---------|
-| `bugs.md` | Past bug solutions (check before debugging) |
-| `decisions.md` | Architecture decisions (ADR format) |
-| `key_facts.md` | Infrastructure knowledge (ports, URLs, tables) |
-| `issues.md` | Work log for session context |
-
----
-
-## Banks (10 methodology templates)
-
-In `kernel/banks/`:
-
-| Bank | When to Use |
-|------|-------------|
-| `BUILD-BANK` | Planning new features |
-| `DEBUGGING-BANK` | Diagnosing issues |
-| `REVIEW-BANK` | Code review |
-| `PLANNING-BANK` | Architecture decisions |
-| `RESEARCH-BANK` | Investigating unknowns |
-| `DISCOVERY-BANK` | Mapping new codebases |
-| `ITERATION-BANK` | Improving existing code |
-| `DOCUMENTATION-BANK` | Writing docs |
-| `TEARITAPART-BANK` | Critical review |
-| `CODING-PROMPT-BANK` | Coding patterns |
-
----
-
-## Benchmark System
-
-`_meta/benchmark/` tracks performance automatically:
-
-- `metrics.jsonl` - Quantitative data (tokens, time, errors)
-- `journal.md` - Qualitative reflections at checkpoints
-- `summary.md` - Weekly rollup
-
-Data is used for self-improvement: find patterns, optimize workflows.
-
----
-
-## Self-Evolution (MANDATORY)
-
-When you learn something:
-1. **Log** to `_meta/_learnings.md`
-2. **Update** the relevant config (agent/rule/skill/CLAUDE.md)
-3. **Commit** with `chore(system): {what evolved}`
-4. **Tell user** briefly what changed
-
-Deletion is evolution too. Kill what doesn't work.
-
----
-
-## Defaults
-
-- Prefer clarity over cleverness
-- Prefer explicit over implicit
-- Prefer existing patterns over new inventions
-- Prefer small verified steps over large speculative leaps
-
-**When uncertain:** Read `kernel/state.md`, then ask.
+*KERNEL = coding OS. LSP-first. Memory-first. Design-intentional. Quality gates enforced. Self-evolving.*

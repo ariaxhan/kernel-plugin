@@ -1,21 +1,23 @@
 # KERNEL
 
-**Project Intelligence for Claude Code** | v2.0.0
+**The AI Coding OS for Claude Code** | v4.0.0
 
-KERNEL is a Claude Code plugin that creates tailored configuration for your project. It analyzes your codebase and builds configuration that fits - coding rules from your patterns, commands for workflows you repeat, agents for specialized tasks, hooks for tools you use. Methodology is applied automatically based on context, and session state persists across conversations.
+KERNEL is a Claude Code plugin that transforms how you develop. It analyzes your codebase, creates tailored configuration, spawns specialized agents, applies methodology automatically, and evolves over time. Your coding assistant becomes a coding OS.
 
 ---
 
-## Why KERNEL?
+## What's New in v4.0.0
 
-Claude Code is powerful, but every project is different. KERNEL bridges this gap by:
-
-1. **Analyzing your project** - stack, patterns, conventions
-2. **Creating tailored config** - only what this project needs
-3. **Spawning specialized agents** - test-runner, code-reviewer, security-scanner
-4. **Applying methodology automatically** - no commands to remember
-5. **Tracking session state** - context survives across conversations
-6. **Evolving over time** - configuration grows as patterns emerge
+- **Compact Unicode syntax** — Token-efficient configuration using symbolic markers (Ψ, →, ≠, Σ, Φ, Ω, Ξ, Δ, ∇, Γ)
+- **5-tier model routing** — Ollama → Gemini → Sonnet → Opus → Haiku with purpose-driven selection
+- **Hooks system** — Auto-detect project type on session start, auto-validate after code edits
+- **Magic keywords** — `ulw` (ultrawork), `ralph` (persistence), `eco` (cost-optimized)
+- **Autonomy rules** — ACT/PAUSE/ASK boundaries for safe autonomous operation
+- **16 commands** — Added `/design` (UI philosophy) and `/repo-init` (generate config for any project)
+- **13 rules** — Added `frontend-conventions` for design-intentional UI development
+- **coding-prompt-bank skill** — Base AI coding philosophy with tier-based complexity
+- **Memory system** — `_memory/` templates for persistent project knowledge
+- **Frontend design philosophy** — Anti-AI-aesthetic enforcement, signature element approach
 
 ---
 
@@ -38,16 +40,16 @@ claude
 ```
 
 KERNEL analyzes your project and creates:
-- `.claude/CLAUDE.md` - Project-specific coding rules
-- `.claude/agents/` - Specialized agents for your stack
-- `.claude/rules/` - Patterns discovered in your codebase
-- `_meta/` - Session tracking structure
+- `.claude/CLAUDE.md` — Project-specific coding rules
+- `.claude/rules/` — Patterns discovered in your codebase
+- `_meta/` — Session tracking structure
+- `_memory/` — Project knowledge base
 
 ### 3. Work Normally
 
 Methodology applies automatically:
-- **Implementing a feature?** KERNEL plans and researches first
-- **Fixing a bug?** KERNEL debugs systematically
+- **Implementing a feature?** KERNEL researches and plans first
+- **Fixing a bug?** KERNEL debugs systematically (reproduce → isolate → root cause)
 - **Writing code?** KERNEL spawns test-runner and type-checker
 - **Before completing?** KERNEL reviews for correctness
 
@@ -55,9 +57,156 @@ No commands to remember. Just work.
 
 ---
 
-## Agents (13)
+## Understanding the Syntax
 
-KERNEL includes specialized agents that spawn proactively based on context.
+KERNEL uses a compact, token-efficient syntax in its `CLAUDE.md`. Here's what each symbol means:
+
+### Section Markers
+
+| Symbol | Section | Purpose |
+|--------|---------|---------|
+| `Ψ:CORE` | Core Philosophy | Foundational principles that guide all behavior |
+| `→:AUTONOMY` | Autonomy Rules | When to act, pause, or ask |
+| `≠:ANTI` | Anti-Patterns | Behaviors to explicitly avoid |
+| `Γ:SESSION` | Session Protocol | How to start, work through, and end sessions |
+| `Σ:METHODOLOGY` | Auto-Methodology | Task detection → bank loading |
+| `Φ:ROUTING` | Model Routing | Which AI model for which task |
+| `Ω:KEYWORDS` | Magic Keywords | Shortcut modes for power users |
+| `Ξ:GIT` | Git Discipline | Commit format, push protocol |
+| `Δ:QUALITY` | Quality Gates | Pre-commit validation requirements |
+| `∇:EVOLUTION` | Self-Evolution | How the system learns and updates itself |
+
+### Inline Rules
+
+Rules use a compact notation:
+
+```
+●rule_name|condition→action
+```
+
+Examples:
+- `●fail_fast|exit_early|clear_errors|no_silent_failures` — Always exit early with clear errors
+- `●atomic_commits|one_logical_change=one_commit` — Each commit is one logical unit
+- `●pattern_repeats(2+)|→encode_to_rules` — When a pattern repeats, encode it as a rule
+
+### Why This Syntax?
+
+1. **Token efficiency** — ~800 tokens vs ~2000+ for verbose markdown. Less context consumed = more room for your code.
+2. **Scannable** — Symbols create visual landmarks. Find sections instantly.
+3. **Precise** — No ambiguity. Each rule is a clear directive.
+4. **Evolvable** — Easy to add/remove rules without restructuring.
+
+---
+
+## Features
+
+### Automatic Methodology
+
+KERNEL detects what you're doing and applies the right approach:
+
+| You're doing... | KERNEL automatically... | Bank |
+|-----------------|-------------------------|------|
+| Implementing a feature | Researches, plans, defines interfaces | PLANNING |
+| Fixing a bug | Reproduces, isolates, finds root cause | DEBUGGING |
+| Choosing an approach | Searches packages, finds 3+ sources | RESEARCH |
+| Completing work | Reviews correctness, conventions, edge cases | REVIEW |
+| Exploring new codebase | Maps structure, detects tooling, extracts patterns | DISCOVERY |
+| Refactoring | Understands deeply, identifies specifics, prioritizes | ITERATION |
+| Planning complex work | Challenges assumptions, finds risks | TEARITAPART |
+
+Banks are loaded automatically. You don't invoke them.
+
+### 5-Tier Model Routing
+
+KERNEL routes work to the right model for cost and quality:
+
+| Tier | Model | Best For | Cost |
+|------|-------|----------|------|
+| 1 | Ollama | Drafts, brainstorming, variations | Free (local) |
+| 2 | Gemini | Web search, bulk file reads (50+), research | Free tier (2M context) |
+| 3 | Sonnet | Implementation, synthesis, file writes | $3/1M input |
+| 4 | Opus | Planning, design, orchestration, review | $15/1M input |
+| 5 | Haiku | Test execution, lint, type checking | $0.25/1M input |
+
+**The orchestrator (you) always runs on Opus.** Subagents are routed by task complexity.
+
+### Magic Keywords
+
+Type these anywhere to activate special modes:
+
+| Keyword | Mode | What Happens |
+|---------|------|-------------|
+| `ulw` or `fast` | Ultrawork | Spawns 3-5 parallel agents for maximum throughput |
+| `ralph` | Persistence | Loops until the task is verified complete — no stopping early |
+| `eco` | Ecomode | Routes everything to the cheapest capable model |
+
+### Hooks System
+
+KERNEL includes prompt-based hooks that fire automatically:
+
+**SessionStart** — When you open Claude Code, KERNEL detects your project type (package.json, pyproject.toml, etc.), notes existing tests and build configs, and prepares to spawn validation agents.
+
+**PostToolUse (Edit|Write)** — After any code modification, KERNEL considers spawning test-runner or type-checker in the background. No announcement — it just validates.
+
+### Autonomy Rules
+
+KERNEL knows when to act and when to ask:
+
+| Action | Examples |
+|--------|---------|
+| **ACT** (just do it) | Read files, explore code, run allowed tools, reversible operations |
+| **PAUSE** (be careful) | Destructive operations, irreversible changes, security-sensitive actions |
+| **ASK** (get approval) | Multi-step plans, design decisions, ambiguous intent, uncertainty |
+
+### Memory-First Protocol
+
+Before every task, KERNEL checks existing knowledge:
+
+```
+_memory/               → Architecture, conventions, dependencies, hotspots, bugs, decisions
+kernel/project-notes/  → Past bug solutions, ADRs, infrastructure knowledge, work logs
+_meta/                 → Session context, learnings, active work state
+```
+
+**Why?** Memory check takes 10 seconds. Re-discovery takes 10+ minutes. KERNEL breaks the rediscovery loop.
+
+### Quality Gates
+
+Before any commit, KERNEL validates:
+
+1. Tests pass
+2. Types check
+3. Lint clean
+4. Security scan
+
+**If any gate fails, the commit is blocked.** Quality is non-negotiable.
+
+### Self-Evolution
+
+KERNEL updates itself:
+
+- Pattern repeats 2+ times → encoded as a rule
+- Mistake repeats → prevention rule added
+- Discovery made → logged to `_meta/_learnings.md` + config updated
+- Stale rule found → deleted (deletion is evolution too)
+
+### Frontend Design Philosophy
+
+KERNEL enforces intentional design:
+
+- **System fonts first** — Never Inter or Geist (AI aesthetic signatures)
+- **No emoji in UI** — Professional, not playful
+- **Sophistication through restraint** — Every element earns its place
+- **One signature element** — Customize until unrecognizable
+- **Anti-pattern enforcement** — Rejects AI slop (purple gradients, shadcn defaults, three-column grids)
+
+Use `/design` to activate full design mode with audit, build, review, and token generation.
+
+---
+
+## Agents (19)
+
+Agents spawn proactively based on context. You don't invoke them — they activate when needed.
 
 ### Fast Validation (Haiku)
 
@@ -67,149 +216,139 @@ KERNEL includes specialized agents that spawn proactively based on context.
 | `type-checker` | TS/Python changes | Validate types |
 | `lint-fixer` | Any code | Auto-fix lint issues |
 | `build-validator` | Significant changes | Verify builds |
-| `dependency-auditor` | package.json changes | Check CVEs, outdated |
-| `git-historian` | "why" questions | Analyze git history |
+| `dependency-auditor` | package.json changes | Check CVEs, outdated packages |
+| `git-historian` | "why" questions, legacy code | Analyze git history |
 | `git-sync` | End of response | Auto-commit and push |
-| `metadata-sync` | End of response | Update active.md |
+| `metadata-sync` | End of response | Update `_meta/` files |
 
 ### Deep Analysis (Opus)
 
 | Agent | Trigger | Purpose |
 |-------|---------|---------|
-| `code-reviewer` | Before commit | Find issues |
+| `code-reviewer` | Before commit, "review this" | Find issues |
 | `security-scanner` | Auth/input code | Find vulnerabilities |
-| `test-generator` | New function | Generate tests |
+| `test-generator` | New function/module | Generate tests |
 | `api-documenter` | API changes | Update docs |
 | `perf-profiler` | "slow" mentions | Profile bottlenecks |
-| `refactor-scout` | "improve" mentions | Find opportunities |
+| `refactor-scout` | "improve" mentions | Find refactoring opportunities |
 | `migration-planner` | Major changes | Plan transitions |
-| `frontend-stylist` | UI/CSS work | Design styles |
-| `media-handler` | Image/video/audio | Process media |
-| `database-architect` | Schema work | Design data layer |
-| `debugger-deep` | Complex bugs | Root cause analysis |
-
-Agents spawn automatically. Don't wait for permission.
+| `frontend-stylist` | UI/CSS work | Design with philosophy enforcement |
+| `media-handler` | Image/video/audio | Process multimedia |
+| `database-architect` | Schema/query work | Design data layer |
+| `debugger-deep` | Complex bugs | Root cause analysis (5-phase) |
 
 ---
 
-## Skills (3)
+## Commands (16)
 
-Auto-triggered capabilities based on keywords.
+### Setup & Maintenance
 
-| Skill | Triggers | Purpose |
-|-------|----------|---------|
-| `debug` | "bug", "error", "broken", "fix" | Systematic debugging methodology |
-| `research` | "research", "investigate", "learn about" | Deep investigation mode |
-| `coding-prompt-bank` | Project init, "coding rules" | Base AI coding philosophy |
-
----
-
-## Commands (14)
-
-### Setup
 | Command | Purpose |
 |---------|---------|
-| `/kernel-init` | Initialize KERNEL for a project |
-| `/kernel-user-init` | Set up user-level defaults |
+| `/kernel-init` | Initialize KERNEL for a project — analyzes codebase, creates tailored config |
+| `/kernel-user-init` | Set up user-level defaults at `~/.claude/` |
+| `/kernel-status` | Show config health, staleness, and untracked artifacts |
+| `/kernel-prune` | Review and remove stale config entries |
 
 ### Development
+
 | Command | Purpose |
 |---------|---------|
-| `/build` | Full pipeline: idea → research → plan → implement → validate |
-| `/iterate` | Continuous improvement on existing code |
-| `/tearitapart` | Critical review before implementing |
-| `/validate` | Pre-commit gate: types + lint + tests |
-| `/docs` | Documentation mode |
+| `/build` | Full pipeline: research → plan → implement → validate |
+| `/iterate` | Continuous improvement: analyze → identify → apply → test |
+| `/tearitapart` | Critical review: challenge assumptions, find risks before implementing |
+| `/validate` | Pre-commit gate: run types, lint, and tests in parallel |
+| `/design` | Design mode: load philosophy, audit UI, build with intention |
+| `/docs` | Documentation mode: audit, generate, maintain docs |
+| `/repo-init` | Generate KERNEL config for any codebase (standalone) |
 
 ### Git Workflow
-| Command | Purpose |
-|---------|---------|
-| `/branch` | Create worktree for isolated work |
-| `/ship` | Commit, push, create PR |
-| `/parallelize` | Set up multiple worktrees |
-| `/release` | Version bump, tag, push |
 
-### Maintenance
 | Command | Purpose |
 |---------|---------|
-| `/kernel-status` | Show config health |
-| `/kernel-prune` | Remove stale config entries |
-| `/handoff` | Generate session continuation brief |
+| `/branch` | Create worktree for isolated development work |
+| `/ship` | Commit, push, and create PR from current branch |
+| `/parallelize` | Set up multiple worktrees for parallel development streams |
+| `/release` | Bump version, update release notes, tag, and push |
+| `/handoff` | Generate context brief for session continuity |
 
 ---
 
-## Rules (11)
+## Rules (13)
 
 Foundational constraints applied across all work.
 
 | Rule | Purpose |
 |------|---------|
-| `self-evolution` | **CRITICAL** - Update system when learning discovered |
-| `commit-discipline` | Atomic, frequent, small commits |
-| `investigation-first` | Search before implementing |
-| `fail-fast` | Exit early, clear errors |
-| `assumptions` | Extract and verify before executing |
-| `methodology` | Auto-detect and apply approach |
-| `invariants` | Non-negotiable contracts |
-| `patterns` | Discovered coding patterns |
-| `decisions` | Architecture decision log |
-| `preferences` | Formatting, presentation, tool choices |
-| `arbiter-syntax` | Pre-compact arbitration rules |
+| `assumptions` | Extract and confirm assumptions before executing any task |
+| `commit-discipline` | Atomic, frequent, conventional commits — push immediately |
+| `context-cascade` | Pass outputs between phases, not full context (prevents token bloat) |
+| `decisions` | Architecture Decision Records — logged choices with rationale |
+| `fail-fast` | Exit early, clear errors, no silent failures |
+| `frontend-conventions` | Implementation patterns for intentional UI development |
+| `invariants` | Non-negotiable contracts: security, integrity, data safety |
+| `investigation-first` | Search for existing patterns before implementing |
+| `memory-protocol` | Check project memory before acting (10s vs 10min) |
+| `methodology` | Auto-detect task type and load relevant knowledge bank |
+| `patterns` | Discovered codebase patterns (naming, errors, logging) |
+| `preferences` | Negotiable defaults (formatting, tool choices) |
+| `self-evolution` | Update system when patterns emerge or mistakes repeat |
 
 ---
 
 ## Knowledge Banks (10)
 
-Methodology templates that apply automatically based on context.
+Methodology templates loaded automatically based on task context.
 
 | Bank | When It Applies |
 |------|-----------------|
-| **PLANNING-BANK** | Before implementing features |
-| **DEBUGGING-BANK** | When fixing bugs or errors |
-| **RESEARCH-BANK** | Before writing new functionality |
-| **REVIEW-BANK** | Before completing any task |
-| **DISCOVERY-BANK** | First time in unfamiliar codebase |
-| **ITERATION-BANK** | When refactoring or improving |
-| **TEARITAPART-BANK** | Before implementing complex plans |
-| **DOCUMENTATION-BANK** | When working on docs |
-| **BUILD-BANK** | Full implementation pipeline |
-| **CODING-PROMPT-BANK** | Core philosophy, tier requirements |
+| **PLANNING-BANK** | Before implementing features — interface design, mental simulation |
+| **DEBUGGING-BANK** | When fixing bugs — reproduce, isolate, root cause, fix |
+| **RESEARCH-BANK** | Before writing new functionality — find packages, compare approaches |
+| **REVIEW-BANK** | Before completing any task — correctness, conventions, edge cases |
+| **DISCOVERY-BANK** | First time in unfamiliar codebase — map structure, detect tooling |
+| **ITERATION-BANK** | When refactoring or improving — prioritize by impact |
+| **TEARITAPART-BANK** | Before implementing complex plans — challenge every assumption |
+| **DOCUMENTATION-BANK** | When working on docs — audience analysis, structure |
+| **BUILD-BANK** | Full implementation pipeline — idea → code → validate |
+| **CODING-PROMPT-BANK** | Core AI coding philosophy — tier system, execution laws |
 
-Banks are referenced automatically. You don't invoke them.
+---
+
+## Skills (3)
+
+Auto-triggered capabilities based on keywords in your messages.
+
+| Skill | Triggers | Purpose |
+|-------|----------|---------|
+| `debug` | "bug", "error", "broken", "fix", "not working" | Systematic 5-phase debugging methodology |
+| `research` | "research", "investigate", "learn about", "deep dive" | Structured investigation with source tracking |
+| `coding-prompt-bank` | "coding rules", "initialize project", "new codebase" | Base AI coding philosophy, tier-based complexity |
 
 ---
 
 ## Session Tracking
 
-KERNEL maintains context across sessions with the `_meta/` structure:
+KERNEL maintains context across sessions:
 
 ```
 _meta/
-├── INDEX.md              # Navigation hub
 ├── _session.md           # Session context (blockers, decisions, infrastructure)
-├── _learnings.md         # Change log (append-only, dated entries)
+├── _learnings.md         # Evolution log (append-only, dated entries)
 ├── context/
 │   └── active.md         # Current work state
-└── research/
-    └── *.md              # Investigation outputs
+└── benchmark/
+    ├── metrics.jsonl      # Quantitative performance data
+    ├── journal.md         # Qualitative reflections
+    └── summary.md         # Weekly rollup
 ```
 
 ### Session Protocol
 
 ```
-SESSION START:
-1. Read _meta/_session.md for context
-2. Read _meta/context/active.md for current work
-3. Check kernel/state.md for project reality
-
-DURING:
-- Update active.md as you work
-- Log learnings to _meta/_learnings.md immediately
-- Spawn agents proactively
-
-SESSION END:
-- Update _meta/_session.md
-- Commit and push (auto via @git-sync)
+START → Read _meta/_session.md, active.md, kernel/state.md, git status
+DURING → Update active.md, log learnings, spawn agents proactively
+END → @metadata-sync + @git-sync (both run in parallel, automatic)
 ```
 
 ---
@@ -218,57 +357,68 @@ SESSION END:
 
 ```
 kernel-claude/
-├── _meta/                 # Session tracking
-│   ├── INDEX.md
+├── CLAUDE.md                    # Core config (compact Unicode syntax)
+├── README.md                    # This file
+├── .claude-plugin/              # Plugin metadata
+│   ├── plugin.json
+│   └── marketplace.json
+├── .claude/                     # KERNEL's own configuration
+│   ├── settings.json            # Hooks (SessionStart, PostToolUse)
+│   ├── agents/                  # 19 agent definitions
+│   ├── rules/                   # 13 rule definitions
+│   ├── commands/                # 16 command definitions
+│   └── skills/                  # 3 skill definitions
+├── kernel/                      # Templates distributed to projects
+│   ├── CLAUDE.md                # Project intelligence template
+│   ├── state.md                 # Shared world model
+│   ├── banks/                   # 10 methodology banks
+│   ├── rules/                   # Rule templates
+│   ├── skills/                  # Skill templates
+│   ├── hooks/                   # Hook templates
+│   └── project-notes/           # Project memory templates
+│       ├── bugs.md
+│       ├── decisions.md
+│       ├── key_facts.md
+│       └── issues.md
+├── _meta/                       # Session tracking
 │   ├── _session.md
 │   ├── _learnings.md
 │   ├── context/
-│   └── research/
-├── commands/              # 14 explicit commands
-│   ├── kernel-init.md
-│   ├── build.md
-│   ├── validate.md
-│   ├── iterate.md
-│   ├── tearitapart.md
-│   └── ...
-├── kernel/
-│   ├── agents/            # 13 agent templates
-│   │   ├── test-runner.md
-│   │   ├── code-reviewer.md
-│   │   └── ...
-│   ├── skills/            # 3 skill templates
-│   │   ├── debug/
-│   │   ├── research/
-│   │   └── coding-prompt-bank/
-│   ├── banks/             # 10 methodology banks
-│   │   ├── PLANNING-BANK.md
-│   │   ├── DEBUGGING-BANK.md
-│   │   └── ...
-│   ├── rules/             # 11 rule templates
-│   │   ├── self-evolution.md
-│   │   ├── commit-discipline.md
-│   │   └── ...
-│   └── state.md
-├── sample-project/        # Example showing KERNEL in action
-├── CONFIG-TYPES.md        # When to use each artifact type
-└── SETUP.md               # Detailed installation guide
+│   │   └── active.md
+│   └── benchmark/
+├── memory/                      # Config registry
+│   └── config_registry.jsonl
+└── .mcp.json                    # MCP servers config
 ```
+
+---
+
+## Configuration Types
+
+| I want Claude to... | Create... |
+|---------------------|-----------|
+| Follow rules on all tasks | `.claude/CLAUDE.md` or `.claude/rules/` |
+| Run workflow when I say `/name` | `.claude/commands/name.md` |
+| Auto-run on code changes | Hook in `.claude/settings.json` |
+| Delegate to specialist | `.claude/agents/name.md` |
+| Auto-trigger on keywords | `.claude/skills/name/SKILL.md` |
+| Connect to external service | `.mcp.json` entry |
 
 ---
 
 ## Philosophy
 
-### Automatic Methodology
+### Correctness Over Speed
 
-KERNEL doesn't require you to type `/plan` or `/debug`. It detects context and applies the right approach:
+KERNEL prioritizes working code on the first attempt. Mental simulation catches 80% of bugs before execution. Think before typing.
 
-| You're doing... | KERNEL automatically... |
-|-----------------|-------------------------|
-| Implementing new feature | Researches, plans, defines interfaces first |
-| Fixing a bug | Reproduces, isolates, finds root cause |
-| Refactoring | Understands deeply before changing |
-| Writing code | Spawns test-runner, type-checker |
-| Completing work | Reviews against requirements |
+### Every Line Is Liability
+
+Config over code. Native over custom. Existing over new. Delete what doesn't earn its place. The best code is code you don't write.
+
+### Investigate Before Implement
+
+Never assume. Find existing patterns first. Copy what works. Adapt minimally. Fighting the framework causes pain.
 
 ### Tailored, Not Templated
 
@@ -279,39 +429,12 @@ Good: "Created test-runner because project has pytest"
 Bad:  "Created test-runner because the template includes it"
 ```
 
-### Self-Evolution
-
-When you learn something, KERNEL captures it:
-
-```
-Learn → Log to _meta/_learnings.md → Update configs → Commit
-```
-
-Patterns compound. Mistakes don't repeat.
-
----
-
-## Configuration Types
-
-| I want Claude to... | Create... |
-|---------------------|-----------|
-| Follow rules on all tasks | `.claude/CLAUDE.md` or `.claude/rules/` |
-| Run workflow when I say `/name` | `.claude/commands/name.md` |
-| Auto-run on file write | Hook in `.claude/settings.json` |
-| Delegate to specialist | `.claude/agents/name.md` |
-| Auto-trigger on keywords | `.claude/skills/name/SKILL.md` |
-| Connect to external service | `.mcp.json` entry |
-
-See [CONFIG-TYPES.md](CONFIG-TYPES.md) for the complete guide.
-
 ---
 
 ## Requirements
 
 - Claude Code CLI **v1.0.33+**
-- Python 3.8+ (optional, for arbiter)
-
-Works on macOS, Linux, and Windows.
+- Works on macOS, Linux, and Windows
 
 ---
 

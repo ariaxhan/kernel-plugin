@@ -22,6 +22,33 @@ tokens: ~400 | type: log | append-only
 
 <!-- append new learnings here, newest at top -->
 
+## 2026-01-28 (v4.0.0 Release)
+
+**Context:** Major version release — compact syntax + NEXUS integration
+**Type:** pattern
+**Changed:** 15+ files, CLAUDE.md rewrite, new commands/rules/skills, hooks
+**What:** Released v4.0.0 adopting compact Unicode syntax from ARIA/NEXUS config hierarchy, integrating full-stack NEXUS features (model routing, magic keywords, autonomy rules, hooks) into the standalone plugin.
+**Why:** Local CodingVault config had evolved significantly since v3.0.0. Compact syntax reduces token consumption ~60%. NEXUS features (model routing, hooks, autonomy) make the plugin self-sufficient. Users need clear documentation for the new syntax.
+**Applied to:**
+- `CLAUDE.md` — Complete rewrite: verbose markdown → compact Unicode (Ψ/→/≠/Σ/Φ/Ω/Ξ/Δ/∇/Γ)
+- `README.md` — Complete rewrite with syntax guide, feature documentation
+- `.claude/settings.json` — Added SessionStart + PostToolUse hooks
+- `.claude/commands/design.md` — New /design command (UI philosophy mode)
+- `.claude/commands/repo-init.md` — New /repo-init command (generate KERNEL for any project)
+- `.claude/rules/frontend-conventions.md` — New frontend implementation rule
+- `.claude/skills/coding-prompt-bank/` — Replaced worktree-parallelization
+- `plugin.json` files — Version 3.0.0 → 4.0.0
+- `_meta/` — All files refreshed for v4.0.0
+- `kernel/state.md` — Updated with new conventions and decisions
+
+**Key decisions:**
+1. Compact Unicode syntax for plugin (matches local config, token-efficient)
+2. Full-stack NEXUS integration (standalone plugin must be self-sufficient)
+3. coding-prompt-bank over worktree-parallelization (more foundational for users)
+4. Hooks for auto-validation (SessionStart + PostToolUse replaces manual spawning)
+
+---
+
 ## 2026-01-17 (v2.0.0 Release)
 
 **Context:** Major version release

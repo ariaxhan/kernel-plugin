@@ -9,6 +9,8 @@ Create project-specific Claude Code configuration by analyzing the codebase and 
 
 **Philosophy**: KERNEL uses banks as methodology guides, not as copy-paste templates. Methodology is applied automatically based on context - no commands needed.
 
+**For comprehensive analysis with _memory/ generation, hotspot detection, and GitHub Actions setup, use `/repo-init` instead.** This command provides a lighter-weight initialization focused on `.claude/CLAUDE.md` and essential project config.
+
 ---
 
 ## Step 1: Analyze the Project
@@ -266,4 +268,6 @@ Next steps:
 **Grounded**: Rules based on observed patterns, not aspirations
 **Honest**: Describes reality, admits what's not yet decided
 
-See `sample-project/.claude/CLAUDE.md` for an example of well-tailored configuration.
+See `kernel/CLAUDE.md` for the distributable template, and the plugin root `CLAUDE.md` for the full methodology reference.
+
+**Need deeper analysis?** Use `/repo-init` for comprehensive codebase analysis with _memory/ population, hotspot detection, dependency mapping, and optional GitHub Actions setup.

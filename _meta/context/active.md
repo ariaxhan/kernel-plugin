@@ -2,70 +2,46 @@
 
 **Current focus and in-progress tasks.**
 
-## Status: Complete
+## Status: In Progress — v4.0.0
 
-v2.0.0 released. All planned work done.
+Major update mirroring local CodingVault config improvements.
 
 ## Completed This Session
 
-- [x] Create _meta folder structure (v1.6.0)
-- [x] Create session tracking files
-- [x] Explore CodingVault config system for patterns
-- [x] Create 13 agent templates
-- [x] Create 3 skill templates
-- [x] Add 4 new rules
-- [x] Add 3 new commands
-- [x] Update README for v2.0.0
-- [x] Update RELEASE_NOTES for v2.0.0
-- [x] Bump version to 2.0.0
-- [x] Create GitHub release
-- [x] Update _meta files
+- [x] Rewrite CLAUDE.md with compact Unicode syntax (Ψ, →, ≠, Σ, Φ, Ω, Ξ, Δ, ∇, Γ)
+- [x] Integrate NEXUS features (model routing, magic keywords, autonomy rules, parallel-first)
+- [x] Add hooks system (SessionStart + PostToolUse) to settings.json
+- [x] Add /design command
+- [x] Add /repo-init command
+- [x] Add frontend-conventions rule
+- [x] Swap worktree-parallelization for coding-prompt-bank skill
+- [x] Version bump all plugin.json files to 4.0.0
+- [x] Update marketplace.json description
+- [x] Rewrite README.md for v4.0.0 with full documentation
+- [x] Refresh _meta files
+- [x] Update kernel/state.md
 
-## Files Created This Session
+## Pending
 
-### Agents (kernel/agents/)
-- test-runner.md, type-checker.md, lint-fixer.md
-- build-validator.md, dependency-auditor.md, git-historian.md
-- git-sync.md, metadata-sync.md
-- code-reviewer.md, security-scanner.md, test-generator.md
-- api-documenter.md, perf-profiler.md, refactor-scout.md
-- migration-planner.md, frontend-stylist.md, media-handler.md
-- database-architect.md, debugger-deep.md
+- [ ] Clean up stale files (CONFIG-TYPES.md, SETUP.md if they exist)
+- [ ] Copy frontend-conventions to kernel/rules/ template
+- [ ] Create GitHub release v4.0.0
+- [ ] Push to remote
 
-### Skills (kernel/skills/)
-- debug/SKILL.md
-- research/SKILL.md
-- coding-prompt-bank/SKILL.md
+## Key Changes (v3.0.0 → v4.0.0)
 
-### Rules (kernel/rules/)
-- self-evolution.md
-- commit-discipline.md
-- investigation-first.md
-- fail-fast.md
-
-### Commands (commands/)
-- validate.md
-- iterate.md
-- tearitapart.md
-
-### Meta (_meta/)
-- INDEX.md, _session.md, _learnings.md
-- context/active.md
-- research/current-structure.md
-
-## Release Info
-
-- Version: 2.0.0
-- Commit: 941105a
-- Tag: v2.0.0
-- URL: https://github.com/ariaxhan/kernel-claude/releases/tag/v2.0.0
-
-## Next Steps (Future Sessions)
-
-- Test /kernel-init with new agents/skills/rules generation
-- Create sample-project updates showing new components
-- Add stack-specific agent templates (React, FastAPI, etc.)
+| Area | Change |
+|------|--------|
+| CLAUDE.md | Verbose markdown → compact Unicode syntax (~800 tokens) |
+| Model routing | None → 5-tier (Ollama/Gemini/Sonnet/Opus/Haiku) |
+| Hooks | Empty → SessionStart + PostToolUse |
+| Magic keywords | None → ulw, ralph, eco |
+| Autonomy | None → ACT/PAUSE/ASK boundaries |
+| Commands | 14 → 16 (+design, +repo-init) |
+| Rules | 12 → 13 (+frontend-conventions) |
+| Skills | worktree-parallelization → coding-prompt-bank |
+| README | v2.0.0 docs → v4.0.0 with syntax guide |
 
 ---
 
-*Updated 2026-01-17*
+*Updated 2026-01-28*

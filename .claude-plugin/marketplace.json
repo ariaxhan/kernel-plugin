@@ -7,7 +7,7 @@
     {
       "name": "kernel",
       "source": "./",
-      "description": "Self-evolving project intelligence"
+      "description": "The AI Coding OS - agents, methodology, design philosophy, self-evolution"
     }
   ]
 }
