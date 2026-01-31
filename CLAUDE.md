@@ -1,6 +1,6 @@
 # KERNEL
 
-**The AI Coding OS** | v4.1.0
+**The AI Coding OS** | v4.2.0
 
 tokens: ~800 | standalone | self-evolving
 
